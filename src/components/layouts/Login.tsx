@@ -13,6 +13,7 @@ import {
   Grid,
 } from '@mui/material';
 import '../../styles/Login.scss'
+import { login } from "../../redux/features/authSlice";
 interface Credadencial {
   username: string;
   password: string;
@@ -29,28 +30,24 @@ const Login = () => {
     e.preventDefault();
     const username = "admin";
     const password = "123456";
-
     try {
-      const isAuthenticated = await authService({ username, password });
 
-      if (isAuthenticated) {
-        dispatch(loginSuccess());
-        navigateTo('/admin'); // Redirect to admin panel
-      } else {
-        setError('Invalid credentials');
+      if(username === 'admin' && password==='123456'){
+         dispatch(login());
+         navigateTo("/admin");
+      }else{
+        setError("Invalid credentials");
+
       }
+      // if (isAuthenticated) {
+      //   dispatch(login());
+      //   navigateTo('/admin'); // Redirect to admin panel
+      // } else {
+      //   setError('Invalid credentials');
+      // }
     } catch (error) {
       setError('An error occurred');
     }
-    
-    // if(username === 'admin' && password==='123456'){
-    //  const isAuth =  localStorage.setItem('isAuthenticated', 'true'); 
-    //  console.log('a', isAuth);
-    //   navigateTo('/admin');
-    //   console.log('login', isAuth);
-    // }else{
-    //   console.log("not login");
-    // }
     
   };
 
