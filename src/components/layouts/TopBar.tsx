@@ -8,13 +8,14 @@ interface TopBarProps {
   handleLogout: () => void;
 }
 
-const TopBar = ({ isAuthenticated}: TopBarProps) => {
+const TopBar = () => {
+   const isAuthenticated = false;
 
   return (
     <AppBar>
       <Toolbar>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          ItAminul
+          ATI
         </Typography>
         {!isAuthenticated ? (
           <Button color="inherit" component={Link} to="/login">
