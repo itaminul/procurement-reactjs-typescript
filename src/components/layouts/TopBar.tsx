@@ -1,6 +1,9 @@
 import React from "react";
 import { AppBar, Toolbar, Typography, Button } from "@mui/material";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import { logout } from "../../redux/features/authSlice";
 
 interface TopBarProps {
   isAuthenticated: boolean;
@@ -9,7 +12,11 @@ interface TopBarProps {
 }
 
 const TopBar = () => {
-   const isAuthenticated = false;
+  const dispatch = useDispatch();
+   const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+  const handleLogout = () => {
+    dispatch(logout());
+  }
 
   return (
     <AppBar>
@@ -23,7 +30,7 @@ const TopBar = () => {
           </Button>
         ) : (
           <>           
-            <Button color="inherit">Logout</Button>
+            <Button onClick={handleLogout} color="inherit">Logout</Button>
           </>
         )}
       </Toolbar>

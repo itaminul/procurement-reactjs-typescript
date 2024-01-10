@@ -26,16 +26,16 @@ const Layout = ({ children }: props) => {
     <>
       <TopBar
         isAuthenticated={isAuthenticated}
-        handleLogin={handleLogin}
-        handleLogout={handleLogout}
+        // handleLogin={handleLogin}
+        // handleLogout={handleLogout}
       />
       <AdminSidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       {/* Content */}
       <div style={{ marginLeft: sidebarOpen ? 240 : 0 }}>
-        Toggle sidebar button 
+        {/* Toggle sidebar button 
          <button onClick={() => setSidebarOpen(!sidebarOpen)}>
           Toggle Sidebar
-        </button>
+        </button> */}
         <main>{children}</main>
       </div>
     </>
