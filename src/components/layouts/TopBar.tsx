@@ -1,6 +1,6 @@
 import React from "react";
 import { AppBar, Toolbar, Typography, Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { logout } from "../../redux/features/authSlice";
@@ -13,9 +13,11 @@ interface TopBarProps {
 
 const TopBar = () => {
   const dispatch = useDispatch();
+  const navigateTo = useNavigate();
    const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
   const handleLogout = () => {
     dispatch(logout());
+    navigateTo("/login");
   }
 
   return (
