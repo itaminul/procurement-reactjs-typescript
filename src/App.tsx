@@ -1,12 +1,10 @@
-import React, { useState } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Login from "./components/layouts/Login";
 import AdminPanel from "./components/layouts/AdminPanel";
 import Layout from "./components/layouts/Layout";
 import { useSelector } from "react-redux";
 import { RootState } from "./redux/store";
 import NotFound from "./components/layouts/NotFound";
-import PrivateRoute from "./components/layouts/PrivateRoute";
 import Home from "./components/Home";
 import Inbox from "./components/Inbox";
 function App() {
