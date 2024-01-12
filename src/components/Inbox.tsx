@@ -1,7 +1,11 @@
 function Inbox() {
   return(
     <>
-      Inbox
+      Inbox dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+      ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
+      aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+      llllllllllllllllllllllllllllllllllllllllllll
+      nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
     </>
   )
 }

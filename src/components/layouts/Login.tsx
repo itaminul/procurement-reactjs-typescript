@@ -1,23 +1,16 @@
 import React, { useState } from "react";
 import {  useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
-import { login as authService } from '../../redux/services/authService';
-import { loginSuccess } from '../../redux/services/authReducer';
-
 import {
-  Button,
   TextField,
   Typography,
   Box,
   Container,
   Grid,
+  Button,
 } from '@mui/material';
 import '../../styles/Login.scss'
 import { login } from "../../redux/features/authSlice";
-interface Credadencial {
-  username: string;
-  password: string;
-}
 const Login = () => {
   const navigateTo = useNavigate();
   const dispatch = useDispatch()
@@ -108,7 +101,3 @@ const Login = () => {
 };
 
 export default Login;
-function dispatch(arg0: any) {
-  throw new Error("Function not implemented.");
-}
-

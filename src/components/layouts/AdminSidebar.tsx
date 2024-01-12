@@ -1,5 +1,4 @@
 import { styled, useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
@@ -12,18 +11,8 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-// import ListItemIcon from "@mui/material/ListItemIcon";
-// import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
-import { MenuItem, ListItemIcon, ListItemText } from "@mui/material";
-import SettingsIcon from "@mui/icons-material/Settings";
-
 import MenuIcon from "@mui/icons-material/Menu";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-
-
 
 import { useDispatch, useSelector } from "react-redux";
 interface AppBarProps extends MuiAppBarProps {
@@ -50,10 +39,10 @@ const AppBar = styled(MuiAppBar, {
 const drawerWidth = 240;
 import { Link, useNavigate } from "react-router-dom";
 import React from "react";
-import TopBar from "./TopBar";
-import { Button } from "@mui/material";
+import { Button, ListItemIcon, ListItemText } from "@mui/material";
 import { RootState } from "../../redux/store";
 import { logout } from "../../redux/features/authSlice";
+import { toggleSidebar } from "../../redux/features/sidebarSlice";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -64,10 +53,6 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-interface AdminSidebarProps {
-  open: boolean;
-  onClose: () => void;
-}
 
 const AdminSidebar = () => {
     const dispatch = useDispatch();
@@ -75,6 +60,7 @@ const AdminSidebar = () => {
      const isAuthenticated = useSelector(
        (state: RootState) => state.auth.isAuthenticated
      );
+     const isSidebarOpen = useSelector((state: RootState) => state.sidebar.isSidebarOpen)
 
        const handleLogout = () => {
          dispatch(logout());
@@ -96,7 +82,7 @@ const AdminSidebar = () => {
     <>
       <CssBaseline />
       {isAuthenticated ? (
-        <AppBar position="fixed" open={open}>
+        <AppBar position="fixed" open={isSidebarOpen}>
           <Toolbar>
             <IconButton
               color="inherit"
