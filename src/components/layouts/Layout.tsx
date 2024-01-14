@@ -23,17 +23,15 @@ const Layout = ({ children }: props) => {
 
   return (
     <>
-      <TopBar
-        // isAuthenticated={isAuthenticated}
-        // handleLogin={handleLogin}
-        // handleLogout={handleLogout}
-      />
       <AdminSidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       {/* Content */}
       <Box
         display="flex"
         flexDirection="row"
         sx={{
+          marginLeft: sidebarOpen ?"240px" : "320px",
+          padding: "20px",
+          transition: "margin-left 0.3s",
           height: "auto",
           marginTop: "-400px",
           width: {

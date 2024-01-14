@@ -126,7 +126,22 @@ const AdminSidebar = () => {
         </Typography> */}
         </AppBar>
       ) : (
-        ""
+        <AppBar>
+      <Toolbar>
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          ATI
+        </Typography>
+        {!isAuthenticated ? (
+          <Button color="inherit" component={Link} to="/login">
+            Login
+          </Button>
+        ) : (
+          <>           
+            <Button onClick={handleLogout} color="inherit">Logout</Button>
+          </>
+        )}
+      </Toolbar>
+    </AppBar>
       )}
       {isAuthenticated ? (
         <Drawer
