@@ -1,6 +1,6 @@
 // drawerSlice.ts
 
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 interface DrawerState {
   isOpen: boolean;
@@ -20,11 +20,14 @@ const drawerSlice = createSlice({
     closeDrawer: (state) => {
       state.isOpen = false;
     },
+    toggleDrawer: (state) => {
+      state.isOpen = !state.isOpen;
+    },
   },
 });
 
-export const { openDrawer, closeDrawer } = drawerSlice.actions;
-export const selectIsDrawerOpen = (state: { drawer: DrawerState }) =>
-  state.drawer.isOpen;
+export const { openDrawer, closeDrawer, toggleDrawer } = drawerSlice.actions;
+// export const selectIsDrawerOpen = (state: { drawer: DrawerState }) =>
+  // state.drawer.isOpen;
 
 export default drawerSlice.reducer;

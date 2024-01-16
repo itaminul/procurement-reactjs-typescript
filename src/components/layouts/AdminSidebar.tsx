@@ -60,7 +60,8 @@ const AdminSidebar = () => {
      const isAuthenticated = useSelector(
        (state: RootState) => state.auth.isAuthenticated
      );
-     const isSidebarOpen = useSelector((state: RootState) => state.sidebar.isSidebarOpen)
+
+     const isDrawerOpen = useSelector((state: RootState) => state.drawer.isOpen);
 
        const handleLogout = () => {
          dispatch(logout());
@@ -68,8 +69,8 @@ const AdminSidebar = () => {
        };
 
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
-
+  const [open, setOpen] = React.useState(isDrawerOpen);
+console.log('open', open)
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -82,12 +83,12 @@ const AdminSidebar = () => {
     <>
       <CssBaseline />
       {isAuthenticated ? (
-        <AppBar position="fixed" open={isSidebarOpen}>
+        <AppBar position="fixed" onClick={handleDrawerOpen}>
           <Toolbar>
             <IconButton
               color="inherit"
               aria-label="open drawer"
-              onClick={handleDrawerOpen}
+              onClick={handleDrawerClose}
               edge="start"
               sx={{ mr: 2, ...(open && { display: "none" }) }}
             >
@@ -127,21 +128,23 @@ const AdminSidebar = () => {
         </AppBar>
       ) : (
         <AppBar>
-      <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          ATI
-        </Typography>
-        {!isAuthenticated ? (
-          <Button color="inherit" component={Link} to="/login">
-            Login
-          </Button>
-        ) : (
-          <>           
-            <Button onClick={handleLogout} color="inherit">Logout</Button>
-          </>
-        )}
-      </Toolbar>
-    </AppBar>
+          <Toolbar>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              ATI
+            </Typography>
+            {!isAuthenticated ? (
+              <Button color="inherit" component={Link} to="/login">
+                Login
+              </Button>
+            ) : (
+              <>
+                <Button onClick={handleLogout} color="inherit">
+                  Logout
+                </Button>
+              </>
+            )}
+          </Toolbar>
+        </AppBar>
       )}
       {isAuthenticated ? (
         <Drawer
@@ -178,7 +181,7 @@ const AdminSidebar = () => {
                 </Link>
               </ListItemButton>
             </ListItem>
-            <ListItem key={1} disablePadding>
+            <ListItem key={2} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
                   <InboxIcon />
