@@ -1,60 +1,33 @@
 import { ReactNode, useState } from "react";
 import TopBar from "./TopBar";
 import AdminSidebar from "./AdminSidebar";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { Box, Container, Grid } from "@mui/material";
-
+import { openDrawer, closeDrawer } from "../../redux/features/drawerSlice";
 interface props {
   children?: ReactNode;
 }
 const Layout = ({ children }: props) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
-  const isAuthenticatedCheck = useSelector((state: RootState) => state.auth.isAuthenticated);
+  const dispatch = useDispatch();
 
-  const handleLogin = () => {
-    setIsAuthenticated(true);
-  };
+const isDrawerOpen = useSelector((state: RootState) => state.drawer.isOpen);
 
-  const handleLogout = () => {
-    setIsAuthenticated(false);
-  };
+const handleCloseDrawer = () => {
+  dispatch(closeDrawer());
+};
 
+console.log("isDrawerOpen", isDrawerOpen);
+const mainContentStyle: React.CSSProperties = {
+  marginLeft: isDrawerOpen ? "4px" : "12px",
+  transition: "margin-left 0.3s",
+  padding: "2px",
+};
   return (
     <>
-      <AdminSidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      <AdminSidebar  />
       {/* Content */}
-      <Box
-        display="flex"
-        flexDirection="row"
-        sx={{
-          marginLeft: sidebarOpen ?"240px" : "320px",
-          padding: "20px",
-          transition: "margin-left 0.3s",
-          height: "auto",
-          marginTop: "-400px",
-          width: {
-            xs: 100,
-            sm: 200,
-            md: 300,
-            lg: 400,
-            xl: 1800,
-          },
-          "@media (max-width:600px)": {
-            fontSize: "14px",
-            padding: "16px",
-          },
-          "@media (min-width:601px) and (max-width:960px)": {
-            fontSize: "16px",
-            padding: "20px",
-          },
-          "@media (min-width:961px)": {
-            fontSize: "18px",
-            padding: "24px",
-          },
-        }}
-      >
+      <Box display="flex" style={mainContentStyle}>
         {children}
       </Box>
       {/* <main>{children}</main> */}
