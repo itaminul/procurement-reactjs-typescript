@@ -8,6 +8,8 @@ import { openDrawer, closeDrawer } from "../../redux/features/drawerSlice";
 interface props {
   children?: ReactNode;
 }
+
+import  './drawerstyle.css'
 const Layout = ({ children }: props) => {
   const dispatch = useDispatch();
 
@@ -19,18 +21,17 @@ const handleCloseDrawer = () => {
 
 console.log("isDrawerOpen", isDrawerOpen);
 const mainContentStyle: React.CSSProperties = {
-  marginLeft: isDrawerOpen ? "4px" : "12px",
-  transition: "margin-left 0.3s",
+  marginLeft: isDrawerOpen ? "250px" : "220px",
+  transition: "margin-left 0.3s ease-in-out", // Added "ease-in-out" for smoother transition
   padding: "2px",
 };
+
+const mainContentClassName = isDrawerOpen ? "open-drawer" : "closed-drawer";
   return (
     <>
-      <AdminSidebar  />
+      <AdminSidebar />
       {/* Content */}
-      <Box display="flex" style={mainContentStyle}>
-        {children}
-      </Box>
-      {/* <main>{children}</main> */}
+       <main style={mainContentStyle}>{children}</main>
     </>
   );
 };
