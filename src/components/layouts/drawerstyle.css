@@ -1,0 +1,11 @@
+.open-drawer {
+  margin-left: 140px;
+  transition: margin-left 0.3s;
+  padding: 2px;
+}
+
+.closed-drawer {
+  margin-left: 250px;
+  transition: margin-left 0.3s;
+  padding: 2px;
+}
