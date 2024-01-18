@@ -38,22 +38,18 @@ const AppBar = styled(MuiAppBar, {
 
 const drawerWidth = 240;
 import { Link, useNavigate } from "react-router-dom";
-import React from "react";
 import { Button, ListItemIcon, ListItemText } from "@mui/material";
 import { RootState } from "../../redux/store";
 import { logout } from "../../redux/features/authSlice";
-import { toggleSidebar } from "../../redux/features/sidebarSlice";
+import { closeDrawer, openDrawer } from "../../redux/features/drawerSlice";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
   justifyContent: "flex-end",
 }));
-
-
 const AdminSidebar = () => {
     const dispatch = useDispatch();
       const navigateTo = useNavigate();
@@ -62,22 +58,30 @@ const AdminSidebar = () => {
      );
 
      const isDrawerOpen = useSelector((state: RootState) => state.drawer.isOpen);
-
        const handleLogout = () => {
          dispatch(logout());
          navigateTo("/login");
        };
+      const theme = useTheme();
+      const handleCloseDrawer = () => {
+        dispatch(closeDrawer());
+      };
+      const handleDrawerOpen = () => {
+        dispatch(openDrawer());
+      };
 
-  const theme = useTheme();
-  const [open, setOpen] = React.useState(isDrawerOpen);
-console.log('open', open)
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
 
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+        const dashboardTitleStyle: React.CSSProperties = {
+          marginLeft: isDrawerOpen ? "215px" : "0px",
+          transition: "margin-left 0.3s ease-in-out",
+          padding: "2px",
+        };
+        const logoutContentStyle: React.CSSProperties = {
+          marginLeft: isDrawerOpen ? "1353px" : "1560px",
+          transition: "margin-left 0.3s ease-in-out",
+          padding: "2px",
+        };
+
 
   return (
     <>
@@ -88,14 +92,13 @@ console.log('open', open)
             <IconButton
               color="inherit"
               aria-label="open drawer"
-              onClick={handleDrawerClose}
+              onClick={handleCloseDrawer}
               edge="start"
-              sx={{ mr: 2, ...(open && { display: "none" }) }}
             >
               <MenuIcon />
             </IconButton>
 
-            <Typography sx={{ flexGrow: 1 }}>Dashboard</Typography>
+            <Typography sx={dashboardTitleStyle}>Dashboard</Typography>
             <List>
               <ListItem>
                 {!isAuthenticated ? (
@@ -104,7 +107,11 @@ console.log('open', open)
                   </Button>
                 ) : (
                   <>
-                    <Button onClick={handleLogout} color="inherit">
+                    <Button
+                      sx={logoutContentStyle}
+                      onClick={handleLogout}
+                      color="inherit"
+                    >
                       Logout
                     </Button>
                   </>
@@ -112,19 +119,6 @@ console.log('open', open)
               </ListItem>
             </List>
           </Toolbar>
-          {/* <Typography  sx={{ flexGrow: 1 }}>
-          {!isAuthenticated ? (
-            <Button color="inherit" component={Link} to="/login">
-              Login
-            </Button>
-          ) : (
-            <>
-              <Button onClick={handleLogout} color="inherit">
-                Logout
-              </Button>
-            </>
-          )}
-        </Typography> */}
         </AppBar>
       ) : (
         <AppBar>
@@ -158,10 +152,11 @@ console.log('open', open)
           }}
           variant="persistent"
           anchor="left"
-          open={open}
+          open={isDrawerOpen}
+          onClose={handleCloseDrawer}
         >
           <DrawerHeader>
-            <IconButton onClick={handleDrawerClose}>
+            <IconButton onClick={handleCloseDrawer}>
               {theme.direction === "ltr" ? (
                 <ChevronLeftIcon />
               ) : (
