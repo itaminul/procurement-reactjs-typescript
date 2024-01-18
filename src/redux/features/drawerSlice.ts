@@ -1,5 +1,3 @@
-// drawerSlice.ts
-
 import { createSlice } from "@reduxjs/toolkit";
 
 interface DrawerState {
