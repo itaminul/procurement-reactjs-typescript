@@ -1,3 +1,4 @@
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { styled, useTheme } from "@mui/material/styles";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -10,11 +11,20 @@ import IconButton from "@mui/material/IconButton";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MenuIcon from "@mui/icons-material/Menu";
-
+import MailIcon from "@mui/icons-material/Mail";
 import { useDispatch, useSelector } from "react-redux";
+import { Button, Collapse, ListItemIcon, ListItemText } from "@mui/material";
+import { RootState } from "../../redux/store";
+import { logout } from "../../redux/features/authSlice";
+import { closeDrawer, openDrawer } from "../../redux/features/drawerSlice";
+import { ExpandLess, ExpandMore } from "@material-ui/icons";
+import React, { useState } from "react";
+
+import './sidebarStyle.scss'
+
+
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
@@ -37,12 +47,6 @@ const AppBar = styled(MuiAppBar, {
 }));
 
 const drawerWidth = 240;
-import { Link, useNavigate } from "react-router-dom";
-import { Button, ListItemIcon, ListItemText } from "@mui/material";
-import { RootState } from "../../redux/store";
-import { logout } from "../../redux/features/authSlice";
-import { closeDrawer, openDrawer } from "../../redux/features/drawerSlice";
-
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
@@ -50,9 +54,12 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   ...theme.mixins.toolbar,
   justifyContent: "flex-end",
 }));
+
+
+
 const AdminSidebar = () => {
     const dispatch = useDispatch();
-      const navigateTo = useNavigate();
+    const navigateTo = useNavigate();
      const isAuthenticated = useSelector(
        (state: RootState) => state.auth.isAuthenticated
      );
@@ -76,13 +83,24 @@ const AdminSidebar = () => {
           transition: "margin-left 0.3s ease-in-out",
           padding: "2px",
         };
+
         const logoutContentStyle: React.CSSProperties = {
           marginLeft: isDrawerOpen ? "1353px" : "1560px",
           transition: "margin-left 0.3s ease-in-out",
           padding: "2px",
         };
 
+         const [open, setOpen] = React.useState(false);
+         const handleClick = () => {
+           setOpen(!open);
+         };
 
+         const [activeItem, setActiveItem]= useState('');
+         
+         const handleSubmenuItem = (item: string) => {
+          setActiveItem(item);
+         }
+         
   return (
     <>
       <CssBaseline />
@@ -166,23 +184,46 @@ const AdminSidebar = () => {
           </DrawerHeader>
           <Divider />
           <List>
-            <ListItem key={1} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <InboxIcon />
-                </ListItemIcon>
-                <Link to="/inbox">
-                  <ListItemText>Inbox</ListItemText>
-                </Link>
-              </ListItemButton>
+            <ListItem onClick={handleClick}>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary="Setup" />
+              {open ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
-            <ListItem key={2} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <InboxIcon />
-                </ListItemIcon>
-                <ListItemText primary={2} />
-              </ListItemButton>
+            <Collapse in={open} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <Link to="/item-setup">
+                  <ListItem>
+                    <ListItemText
+                      className="submenu-item"
+                      key="item"
+                      primary="Item"
+                    />
+                  </ListItem>
+                </Link>
+                <Link to="/vendor-setup">
+                  <ListItem>
+                    <ListItemText
+                      className="submenu-item"
+                      key="vendor"
+                      primary="Vender"
+                    />
+                  </ListItem>
+                </Link>
+              </List>
+            </Collapse>
+            <ListItem>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary="Inbox" />
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <MailIcon />
+              </ListItemIcon>
+              <ListItemText primary="Sent" />
             </ListItem>
           </List>
           <Divider />
