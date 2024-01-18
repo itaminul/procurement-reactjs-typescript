@@ -7,6 +7,8 @@ import { RootState } from "./redux/store";
 import NotFound from "./components/layouts/NotFound";
 import Home from "./components/Home";
 import Inbox from "./components/Inbox";
+import ItemSetupIndex from "./components/setup/item-setup/ItemSetupIndex";
+import VendorSetupIndex from "./components/setup/vendor-setup/VendorSetupIndex";
 function App() {
   const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated)
   return (
@@ -22,6 +24,14 @@ function App() {
           <Route
             path="/inbox"
             element={isAuthenticated ? <Inbox /> : <Login />}
+          />
+          <Route
+            path="/item-setup"
+            element={isAuthenticated ? <ItemSetupIndex /> : <Login />}
+          />
+          <Route
+            path="/vendor-setup"
+            element={isAuthenticated ? <VendorSetupIndex /> : <Login />}
           />
           <Route path="/*" element={<NotFound />} />
         </Routes>

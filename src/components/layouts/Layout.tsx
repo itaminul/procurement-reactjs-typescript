@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 const Layout = ({ children }: props) => {
   const isDrawerOpen = useSelector((state: RootState) => state.drawer.isOpen)
   const mainContentStyle: React.CSSProperties = {
-  marginLeft: isDrawerOpen ? "250px" : "20px",
+  marginLeft: isDrawerOpen ? "160px" : "20px",
   transition: "margin-left 0.3s ease-in-out", 
   padding: "2px",
   marginTop: "-380px",
@@ -22,7 +22,7 @@ const Layout = ({ children }: props) => {
       <AdminSidebar />
       <Container component="main" sx={mainContentStyle}>
         <Grid container justifyContent="center">
-          <Grid xs={12}>
+          <Grid>
             {children}
           </Grid>
         </Grid>
