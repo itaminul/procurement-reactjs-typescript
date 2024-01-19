@@ -7,10 +7,13 @@ interface props {
 }
 import { Container, Grid } from "@mui/material";
 import { useSelector } from "react-redux";
+import ChatBoard from "../liveChat/ChatBoard";
+import MessageBox from "../liveChat/MessageBox";
+
 const Layout = ({ children }: props) => {
   const isDrawerOpen = useSelector((state: RootState) => state.drawer.isOpen)
   const mainContentStyle: React.CSSProperties = {
-  marginLeft: isDrawerOpen ? "160px" : "20px",
+  marginLeft: isDrawerOpen ? "160px" : "0px",
   transition: "margin-left 0.3s ease-in-out", 
   padding: "2px",
   marginTop: "-380px",
@@ -20,11 +23,11 @@ const Layout = ({ children }: props) => {
   return (
     <>
       <AdminSidebar />
+      {/* <ChatBoard /> */}
+      <MessageBox />
       <Container component="main" sx={mainContentStyle}>
         <Grid container justifyContent="center">
-          <Grid>
-            {children}
-          </Grid>
+          <Grid>{children}</Grid>
         </Grid>
       </Container>
       {/* <main style={mainContentStyle}>{children}</main> */}

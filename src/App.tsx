@@ -9,6 +9,7 @@ import Home from "./components/Home";
 import Inbox from "./components/Inbox";
 import ItemSetupIndex from "./components/setup/item-setup/ItemSetupIndex";
 import VendorSetupIndex from "./components/setup/vendor-setup/VendorSetupIndex";
+import Chatbox from "./components/liveChat/ChatBoard";
 function App() {
   const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated)
   return (
@@ -17,6 +18,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={!isAuthenticated ? <Login />: ''} />
+          <Route
+          path="/"
+          element={isAuthenticated ? <Chatbox /> : <Login />}
+          />
           <Route
             path="/admin"
             element={isAuthenticated ? <AdminPanel /> : <Login />}
