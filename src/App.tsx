@@ -16,7 +16,7 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={!isAuthenticated ? <Login />: ''} />
           <Route
             path="/admin"
             element={isAuthenticated ? <AdminPanel /> : <Login />}

@@ -29,7 +29,7 @@ const ItemTable: React.FC = () => {
         //  pageSize={5}
         checkboxSelection
         components={{ Toolbar: GridToolbar }}
-        filterModel={filterModel}
+        filterMode={filterModel}
        // onFilterModelChange={(model) => setFilterModel(model)}
      //   components={{ Toolbar: GridToolbar }}
       />
