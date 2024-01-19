@@ -4,12 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import {
   TextField,
   Typography,
-  Box,
   Container,
-  Grid,
   Button,
-} from '@mui/material';
-import '../../styles/Login.scss'
+  CssBaseline,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
+import './LoginForm.scss'
 import { login } from "../../redux/features/authSlice";
 const Login = () => {
   const navigateTo = useNavigate();
@@ -43,59 +44,64 @@ const Login = () => {
     }
     
   };
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
     <>
-        <Container maxWidth="xs">
-      <Box
-        sx={{
-          marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <Typography component="h1" variant="h5">
-          Login
-        </Typography>
-        <Box component="form" sx={{ mt: 1, width: '100%' }} onSubmit={handleLogin}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="username"
-                label="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="password"
-                label="Password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+      <Container component="main">
+        <CssBaseline />
+        <div
+          className={`login-form-container ${
+            isSmallScreen ? "small-screen" : ""
+          }`}
+        >
+          <Typography
+            component="h1"
+            variant="h5"
+            style={{ marginLeft: "650px" }}
           >
-            Login
-          </Button>
-        </Box>
-      </Box>
-    </Container>
-     
+            Sign in
+          </Typography>
+          <form className="login-form" noValidate onSubmit={handleLogin}>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="username"
+              label="Username"
+              name="username"
+              autoComplete="username"
+              autoFocus
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className="submit-button"
+            >
+              Sign In
+            </Button>
+          </form>
+        </div>
+      </Container>
     </>
   );
 };
