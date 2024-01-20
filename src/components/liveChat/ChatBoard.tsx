@@ -1,12 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
-  Box,
   TextField,
   Button,
-  List,
-  ListItem,
-  ListItemText,
   Paper,
+  IconButton,
 } from "@mui/material";
 import './chatBoard.scss'
 
@@ -14,6 +11,8 @@ interface ChatboxProps {
   onClose: () => void;
 }
 
+import SendIcon from "@mui/icons-material/Send";
+import CloseIcon from "@mui/icons-material/Close";
 
 const Chatbox = ({ onClose }: ChatboxProps) => {
   const [message, setMessage] = useState("");
@@ -25,11 +24,15 @@ const Chatbox = ({ onClose }: ChatboxProps) => {
       setMessage("");
     }
   };
+  const [showChatbox, setShowChatbox] = useState(false);
 
   return (
     <Paper className="chatboxContainer">
       <div className="chatboxHeader">
         <div>Chat</div>
+        <IconButton className="chatIcon" onClick={onClose}>
+          {!showChatbox ? <CloseIcon /> : <SendIcon />}
+        </IconButton>
         <Button onClick={onClose}>Close</Button>
       </div>
       <div className="chatboxContent">
@@ -51,29 +54,6 @@ const Chatbox = ({ onClose }: ChatboxProps) => {
         </Button>
       </div>
     </Paper>
-    
-    // <Box className="chatboxContainer">
-    //   <List className="messagesContainer">
-    //     {messages.map((msg, index) => (
-    //       <ListItem key={index}>
-    //         <ListItemText primary={msg} />
-    //       </ListItem>
-    //     ))}
-    //   </List>
-    //   <Box className="inputContainer">
-    //     <TextField
-    //       variant="outlined"
-    //       size="small"
-    //       label="Type a message"
-    //       value={message}
-    //       onChange={(e) => setMessage(e.target.value)}
-    //       className="inputField"
-    //     />
-    //     <Button variant="contained" color="primary" onClick={handleSendMessage}>
-    //       Send
-    //     </Button>
-    //   </Box>
-    // </Box>
   );
 };
 

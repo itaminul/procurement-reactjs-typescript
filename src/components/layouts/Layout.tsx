@@ -7,8 +7,6 @@ interface props {
 }
 import { Container, Fab, Grid } from "@mui/material";
 import { useSelector } from "react-redux";
-import ChatBoard from "../liveChat/ChatBoard";
-import MessageBox from "../liveChat/MessageBox";
 import Chatbox from "../liveChat/ChatBoard";
 import ChatIcon from "@mui/icons-material/Chat";
 const Layout = ({ children }: props) => {
@@ -41,7 +39,6 @@ const toggleChatbox = () => {
           <Grid>{children}</Grid>
         </Grid>
       </Container>
-      {/* <main style={mainContentStyle}>{children}</main> */}
     </>
   );
 };
