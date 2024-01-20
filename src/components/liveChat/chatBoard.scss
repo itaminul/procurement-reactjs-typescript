@@ -8,7 +8,7 @@
   text-align: right;
   margin-left: "250px";
 }
-.messagesContainer {
+.messagesContainer2 {
   flex: 1;
   overflow-y: "auto";
   padding: 2;
@@ -18,12 +18,12 @@
   align-items: "center";
   padding: 2;
 }
-.inputField {
+.inputField3 {
   flex: 1;
 }
 //
 
-.chatboxContainer {
+.chatboxContainer2 {
   position: "fixed";
   bottom: 2;
   right: 2;
@@ -34,7 +34,7 @@
   border-radius: "18px";
   box-shadow: "10px 10px 10px blue";
   overflow: "hidden";
-  transition: "transform 0.3s ease-out";
+  transition: "transform 0.3s ease-in-out";
   transform: "translateX(100%)";
 }
 .chatboxHeader {
@@ -45,17 +45,64 @@
   justify-content: "space-between";
   align-items: "center";
 }
-.chatboxContent {
+.chatboxContent2 {
   flex: 1;
   padding: 2;
   overflow-y: "auto";
 }
-.inputContainer {
+.inputContainer2 {
   padding: 2;
   border-top: "1px solid #ccc";
   display: "flex";
 }
-.inputField {
+.inputField2 {
   flex: 1;
   margin-right: 2;
 }
+
+///
+/// 
+/// 
+  .chatboxContainer {
+    position: 'fixed';
+    bottom: 2;
+    right: 2;
+    z-index: 1000;
+    transition: 'transform 0.3s ease-in-out';
+    transform: '1000px'
+  }
+  .show {
+    transform: 'translateX(0)';
+  };
+  .chatIcon {
+    position: 'fixed';
+    bottom: 2;
+    right: 2;
+    z-index: 1000;
+  }
+  .chatboxContent {
+    display: 'flex';
+    flex-direction: 'column';
+    height: '300px';
+    width: '300px';
+    border: '1px solid #ccc';
+    border-radius: '4px';
+    overflow: 'hidden';
+  }
+  .messagesContainer {
+    flex: 1;
+    overflow-y: 'auto';
+    padding: 2;
+  }
+  .inputContainer {
+    display: 'flex';
+    align-items: 'center';
+    padding: 2;
+  }
+  .inputField {
+    flex: 1;
+    margin-right: 2
+  }
+  .sendButton {
+    margin-left: 2
+  }
