@@ -1,9 +1,11 @@
+import VendorTable from "./VendorTable";
+
 function VendorSetupIndex() {
-  return(
+  return (
     <>
-    Vendoer setup index
+      <VendorTable />
     </>
-  )
+  );
 }
 
 export default VendorSetupIndex;
