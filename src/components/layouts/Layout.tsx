@@ -24,7 +24,7 @@ const Layout = ({ children }: props) => {
     <>
       <AdminSidebar />
       {/* <ChatBoard /> */}
-      <MessageBox />
+      {/* <MessageBox /> */}
       <Container component="main" sx={mainContentStyle}>
         <Grid container justifyContent="center">
           <Grid>{children}</Grid>
