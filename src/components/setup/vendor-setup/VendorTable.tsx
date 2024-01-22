@@ -81,6 +81,12 @@ const rows = [
 ];
 
 export default function VendorTable() {
+  const [isCreateModalOpen, setIsCreateModalOpen] = React.useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = React.useState(false);
+  const handleOpenModal = () => {
+    setIsCreateModalOpen(true);
+  }
+
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -95,10 +101,7 @@ export default function VendorTable() {
     setPage(0);
   };
 
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  }
+
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
       <div>
