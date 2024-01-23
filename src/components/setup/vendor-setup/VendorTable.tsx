@@ -12,18 +12,13 @@ import ModalComponent from "./CreaetVendorModal";
 import CreateVendorModal from "./CreaetVendorModal";
 import EditVendorModal from "./EditVendorModal";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { useState } from "react";
-
-interface Row {
-  id: number;
-  name: string;
-  // Add other fields as needed
-}
+import { useEffect, useState } from "react";
+import { VendorDataItems } from "./VendorDataTypes";
 
 export default function VendorTable() {
    const [isCreateModalOpen, setCreateModalOpen] = React.useState(false);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
-  const [selectedRowId, setSelectedRowId] = useState<number | null>(null);
+  const [selectedRowId, setSelectedRowId] = useState<VendorDataItems[] | any>(null);
 
   const handleOpenCreateModal = () => {
     setCreateModalOpen(true);
@@ -58,11 +53,30 @@ export default function VendorTable() {
     },
   ];
 
-  const rows: Row[] = [
-    { id: 1, name: 'John Doe' },
+
+  const [setUsers, setsetUsers] = useState<VendorDataItems[]>([]);
+
+  // Simulate fetching data based on the selectedRowId
+  useEffect(() => {
+    // Fetch data based on selectedRowId
+    const fetchData = async () => {
+      // Simulated API call
+      const response = await fetch(`/data.json`);
+      const data = await response.json();
+
+  console.log("response", response);
+    //  setSelectedRow(data);
+    setsetUsers(data.setUsers);
+    }; 
+      fetchData();    
+  }, []);
+
+  const rows: VendorDataItems[] = [
+    { id: 1, name: 'John Doe ddd'  },
     { id: 2, name: 'Jane Doe' },
     // Add other rows as needed
   ];
+  console.log("setUsers table", setUsers);
 
   return (
     <div>
@@ -70,7 +84,7 @@ export default function VendorTable() {
 
       {/* Data Table */}
       <div style={{ height: 400, width: '100%' }}>
-        <DataGrid rows={rows} columns={columns} />
+        <DataGrid rows={setUsers} columns={columns} />
       </div>
 
     

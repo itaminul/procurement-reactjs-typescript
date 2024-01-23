@@ -30,10 +30,10 @@ const toggleChatbox = () => {
       <AdminSidebar />
       {/* <ChatBoard /> */}
       {/* <MessageBox /> */}
-      {isChatboxOpen && <Chatbox onClose={toggleChatbox} />}
+      {/* {isChatboxOpen && <Chatbox onClose={toggleChatbox} />}
       <Fab className="" color="primary" onClick={toggleChatbox}>
         <ChatIcon />
-      </Fab>
+      </Fab> */}
       <Container component="main" sx={mainContentStyle}>
         <Grid container justifyContent="center">
           <Grid>{children}</Grid>

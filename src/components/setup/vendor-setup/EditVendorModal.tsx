@@ -9,12 +9,32 @@ interface EditModalProps {
   selectedRowId: number | null;
 }
 
+interface VendorTypes {
+  id: number;
+  name: string;
+  // Add other fields as needed
+}
+
+const Row: VendorTypes[] = [
+  { id: 1, name: 'John Doe' },
+  { id: 2, name: 'Jane Doe' },
+  // Add other rows as needed
+];
+
+interface User {
+  id: number;
+  name: string;
+}
+
 const EditVendorModal: React.FC<EditModalProps> = ({
   open,
   onClose,
   selectedRowId,
 }) => {
-  const [selectedRow, setSelectedRow] = useState<Row | null>(null);
+  const [users, setUsers] = useState<User[]>([]);
+
+  const [selectedRow, setSelectedRow] = useState<User | any>(null);
+  const [fetchValue, setFetchValue] = useState<User[] | any>(null);
 
   // Simulate fetching data based on the selectedRowId
   useEffect(() => {
@@ -22,10 +42,13 @@ const EditVendorModal: React.FC<EditModalProps> = ({
     const fetchData = async () => {
       // Simulated API call
       const response = await fetch(
-        `https://api.example.com/data/${selectedRowId}`
+        `/data.json`
       );
       const data = await response.json();
+
+  console.log("data", data);
       setSelectedRow(data);
+      setUsers(data);
     };
 
     if (selectedRowId !== null) {
@@ -33,11 +56,19 @@ const EditVendorModal: React.FC<EditModalProps> = ({
     }
   }, [selectedRowId]);
 
+  const fetchUserById = (id: number) => {
+    const userd = users.find(user => user.id === id);
+    setFetchValue(userd);
+   
+  }
+  console.log("Save fetchValue:", fetchValue);
+
   const handleSave = () => {
     // Handle saving the edited row data
     console.log("Save data:", selectedRow);
     onClose();
   };
+
 
   const style = {
     position: "absolute",
@@ -68,7 +99,7 @@ const EditVendorModal: React.FC<EditModalProps> = ({
           </Typography>
            <TextField
               label="Name"
-              // value={selectedRow.name}
+            //  value={selectedRow.name}
               // onChange={(e) =>
               //   setSelectedRow((prev: unknown) => ({ ...prev, name: e.target.value }))
               // }
