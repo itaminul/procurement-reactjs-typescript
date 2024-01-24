@@ -62,11 +62,12 @@ export default function VendorTable() {
     const fetchData = async () => {
       // Simulated API call
       const response = await fetch(`/data.json`);
+      const resData = users.response;
       const data = await response.json();
 
   console.log("response", response);
     //  setSelectedRow(data);
-    setsetUsers(data.setUsers);
+    setsetUsers(data);
     }; 
       fetchData();    
   }, []);
@@ -76,7 +77,7 @@ export default function VendorTable() {
     { id: 2, name: 'Jane Doe' },
     // Add other rows as needed
   ];
-  console.log("setUsers table", setUsers);
+  console.log("setUsers table rows", rows);
 
   return (
     <div>
@@ -84,12 +85,11 @@ export default function VendorTable() {
 
       {/* Data Table */}
       <div style={{ height: 400, width: '100%' }}>
-        <DataGrid rows={setUsers} columns={columns} />
+        <DataGrid rows={rows} columns={columns} />
       </div>
 
     
       <CreateVendorModal open={isCreateModalOpen} onClose={handleCloseCreateModal} />
-
    
       <EditVendorModal
         open={isEditModalOpen}
