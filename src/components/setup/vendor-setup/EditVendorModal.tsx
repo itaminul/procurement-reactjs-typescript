@@ -46,7 +46,7 @@ const EditVendorModal: React.FC<EditModalProps> = ({
       );
       const data = await response.json();
 
-  console.log("data", data);
+  //console.log("data", data);
       setSelectedRow(data);
       setUsers(data);
     };
