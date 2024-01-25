@@ -2,12 +2,11 @@
 import React, { useEffect, useState } from "react";
 import Modal from "@mui/material/Modal";
 import { Box, Button, TextField, Typography } from "@mui/material";
-
+import '../../../styles/modalStyles.scss'
 interface EditModalProps {
   open: boolean;
   onClose: () => void;
   selectedRowId: number | null;
-  modalStyleLg: any;
 }
 
 interface VendorTypes {
@@ -30,8 +29,7 @@ interface User {
 const EditVendorModal: React.FC<EditModalProps> = ({
   open,
   onClose,
-  selectedRowId,
-  modalStyleLg
+  selectedRowId
 }) => {
   const [users, setUsers] = useState<User[]>([]);
 
@@ -74,35 +72,33 @@ const EditVendorModal: React.FC<EditModalProps> = ({
 
   
   return (
-    <Modal open={open} onClose={onClose}
-        keepMounted
+    <Modal
+      open={open}
+      onClose={onClose}
+      keepMounted
       //  open={open}
       //  onClose={handleClose}
-        aria-labelledby="keep-mounted-modal-title"
-        aria-describedby="keep-mounted-modal-description"
-       
-      >
-        <Box
-         sx={modalStyleLg}
-        >
-          <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="keep-mounted-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
-           <TextField
-              label="Name"
-            //  value={selectedRow.name}
-              // onChange={(e) =>
-              //   setSelectedRow((prev: unknown) => ({ ...prev, name: e.target.value }))
-              // }
-            />
-            <Button onClick={handleSave}>Save</Button>
-            <Button onClick={onClose}>Cancel</Button>
-            
-        </Box>
-      </Modal>
+      aria-labelledby="keep-mounted-modal-title"
+      aria-describedby="keep-mounted-modal-description"
+    >
+      <Box className="modal-size-lg">
+        <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
+          Text in a modal
+        </Typography>
+        <Typography id="keep-mounted-modal-description" sx={{ mt: 2 }}>
+          Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+        </Typography>
+        <TextField
+          label="Name"
+          //  value={selectedRow.name}
+          // onChange={(e) =>
+          //   setSelectedRow((prev: unknown) => ({ ...prev, name: e.target.value }))
+          // }
+        />
+        <Button onClick={handleSave}>Save</Button>
+        <Button onClick={onClose}>Cancel</Button>
+      </Box>
+    </Modal>
   );
 };
 export default EditVendorModal;

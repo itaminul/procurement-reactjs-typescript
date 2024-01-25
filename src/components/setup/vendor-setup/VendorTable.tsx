@@ -7,18 +7,6 @@ import { useEffect, useState } from "react";
 import { VendorDataItems } from "./VendorDataTypes";
 import  '../../../styles/modalStyles.scss'
 
-const modalStyleLg = {
-  position: "absolute",
-  top: "20%",
-  left: "45%",
-  transform: "translate(-50%, -50%)",
-  width: 1500,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
-
 export default function VendorTable() {
    const [isCreateModalOpen, setCreateModalOpen] = React.useState(false);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
@@ -78,12 +66,11 @@ export default function VendorTable() {
       <div style={{ height: 400, width: '100%' }}>
         <DataGrid rows={setUsers} columns={columns} />
       </div>   
-      <CreateVendorModal open={isCreateModalOpen} onClose={handleCloseCreateModal} modalStyleLg={modalStyleLg} />   
+      <CreateVendorModal open={isCreateModalOpen} onClose={handleCloseCreateModal} />   
       <EditVendorModal
         open={isEditModalOpen}
         onClose={handleCloseEditModal}
         selectedRowId={selectedRowId}
-        modalStyleLg={modalStyleLg}
       />
     </div>
   );
