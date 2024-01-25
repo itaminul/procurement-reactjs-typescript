@@ -2,25 +2,14 @@
 import React from "react";
 import Modal from "@mui/material/Modal";
 import { Box, Button, Typography } from "@mui/material";
-
+import '../../../styles/modalStyles.scss'
 interface ModalProps {
   open: boolean;
   onClose: () => void;
+  modalStyleLg: any;
   // Add other props as needed
 }
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
-
-const CreateVendorModal: React.FC<ModalProps> = ({ open, onClose }) => {
+const CreateVendorModal: React.FC<ModalProps> = ({ open, onClose, modalStyleLg }) => {
   return (
   <Modal open={open} onClose={onClose}
         keepMounted
@@ -29,7 +18,7 @@ const CreateVendorModal: React.FC<ModalProps> = ({ open, onClose }) => {
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={modalStyleLg}>
           <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
             Text in a modal
           </Typography>

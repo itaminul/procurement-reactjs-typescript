@@ -7,6 +7,7 @@ interface EditModalProps {
   open: boolean;
   onClose: () => void;
   selectedRowId: number | null;
+  modalStyleLg: any;
 }
 
 interface VendorTypes {
@@ -30,11 +31,12 @@ const EditVendorModal: React.FC<EditModalProps> = ({
   open,
   onClose,
   selectedRowId,
+  modalStyleLg
 }) => {
   const [users, setUsers] = useState<User[]>([]);
 
   const [selectedRow, setSelectedRow] = useState<User | any>(null);
-  const [fetchValue, setFetchValue] = useState<User[] | any>(null);
+  const [fetchValue, setFetchValue] = useState<any>(null);
 
   // Simulate fetching data based on the selectedRowId
   useEffect(() => {
@@ -56,32 +58,21 @@ const EditVendorModal: React.FC<EditModalProps> = ({
     }
   }, [selectedRowId]);
 
-  const fetchUserById = (id: number) => {
-    const userd = users.find(user => user.id === id);
+  const fetchUserById = (selectedRowId: number) => {
+    const userd = users.find(user => user.id === selectedRowId);
     setFetchValue(userd);
    
   }
-  console.log("Save fetchValue:", fetchValue);
+  console.log("Save fetchValue:", fetchUserById.name);
 
   const handleSave = () => {
     // Handle saving the edited row data
-    console.log("Save data:", selectedRow);
+    // console.log("Save data:", selectedRow);
     onClose();
   };
 
 
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-  };
-
+  
   return (
     <Modal open={open} onClose={onClose}
         keepMounted
@@ -89,8 +80,11 @@ const EditVendorModal: React.FC<EditModalProps> = ({
       //  onClose={handleClose}
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description"
+       
       >
-        <Box sx={style}>
+        <Box
+         sx={modalStyleLg}
+        >
           <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
             Text in a modal
           </Typography>

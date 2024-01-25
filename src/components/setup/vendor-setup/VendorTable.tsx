@@ -1,19 +1,23 @@
 import * as React from "react";
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
 import { Button } from "@mui/material";
-import ModalComponent from "./CreaetVendorModal";
 import CreateVendorModal from "./CreaetVendorModal";
 import EditVendorModal from "./EditVendorModal";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import { VendorDataItems } from "./VendorDataTypes";
+import  '../../../styles/modalStyles.scss'
+
+const modalStyleLg = {
+  position: "absolute",
+  top: "20%",
+  left: "45%",
+  transform: "translate(-50%, -50%)",
+  width: 1500,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 export default function VendorTable() {
    const [isCreateModalOpen, setCreateModalOpen] = React.useState(false);
@@ -55,29 +59,16 @@ export default function VendorTable() {
 
 
   const [setUsers, setsetUsers] = useState<VendorDataItems[]>([]);
-
-  // Simulate fetching data based on the selectedRowId
   useEffect(() => {
-    // Fetch data based on selectedRowId
     const fetchData = async () => {
-      // Simulated API call
       const response = await fetch(`/data.json`);
-      const resData = users.response;
       const data = await response.json();
-
-  console.log("response", response);
-    //  setSelectedRow(data);
-    setsetUsers(data);
+      setsetUsers(data);
     }; 
       fetchData();    
   }, []);
 
-  const rows: VendorDataItems[] = [
-    { id: 1, name: 'John Doe ddd'  },
-    { id: 2, name: 'Jane Doe' },
-    // Add other rows as needed
-  ];
-  console.log("setUsers table rows", rows);
+  const rows = setUsers
 
   return (
     <div>
@@ -85,16 +76,14 @@ export default function VendorTable() {
 
       {/* Data Table */}
       <div style={{ height: 400, width: '100%' }}>
-        <DataGrid rows={rows} columns={columns} />
-      </div>
-
-    
-      <CreateVendorModal open={isCreateModalOpen} onClose={handleCloseCreateModal} />
-   
+        <DataGrid rows={setUsers} columns={columns} />
+      </div>   
+      <CreateVendorModal open={isCreateModalOpen} onClose={handleCloseCreateModal} modalStyleLg={modalStyleLg} />   
       <EditVendorModal
         open={isEditModalOpen}
         onClose={handleCloseEditModal}
         selectedRowId={selectedRowId}
+        modalStyleLg={modalStyleLg}
       />
     </div>
   );
