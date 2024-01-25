@@ -1,10 +1,10 @@
-.modalStyleLg {
-    position: "absolute";
-    top: "20%";
-    left: "45%";
-    width: "5%";
-    background: blue;
-    border: "2px solid black";
-    box-shadow: 24;
-    padding: 4;
-  };
+.modal-size-lg {
+  position: absolute;
+  margin-top: 90px;
+  margin-left: 145px;
+  padding: 15px 15px 15px 15px;
+  width: 1550px;
+  background-color: white;
+  border: 0px solid wheat;
+  transform: translate(-2%, -5%);
+}
