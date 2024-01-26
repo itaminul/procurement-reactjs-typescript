@@ -63,7 +63,7 @@ export default function VendorTable() {
       <Button onClick={handleOpenCreateModal}>Create</Button>
 
       {/* Data Table */}
-      <div style={{ height: 400, width: '100%' }}>
+      <div style={{ height: 400, width: '250%' }}>
         <DataGrid rows={setUsers} columns={columns} />
       </div>   
       <CreateVendorModal open={isCreateModalOpen} onClose={handleCloseCreateModal} />   
