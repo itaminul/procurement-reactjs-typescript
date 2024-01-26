@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import Modal from "@mui/material/Modal";
 import { Box, Button, TextField, Typography } from "@mui/material";
-import '../../../styles/modalStyles.scss'
 interface EditModalProps {
   open: boolean;
   onClose: () => void;
