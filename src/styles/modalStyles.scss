@@ -1,9 +1,42 @@
+
+.modal-size-xl {
+  position: absolute;
+  margin-top: 90px;
+  margin-left: 145px;
+  padding: 15px 15px 15px 15px;
+  width: 1550px;
+  background-color: white;
+  border: 0px solid wheat;
+  transform: translate(-2%, -5%);
+}
 .modal-size-lg {
   position: absolute;
   margin-top: 90px;
   margin-left: 145px;
   padding: 15px 15px 15px 15px;
   width: 1550px;
+  background-color: white;
+  border: 0px solid wheat;
+  transform: translate(-2%, -5%);
+}
+
+.modal-size-md {
+  position: absolute;
+  margin-top: 90px;
+  margin-left: 385px;
+  padding: 15px 15px 15px 15px;
+  width: 1000px;
+  background-color: white;
+  border: 0px solid wheat;
+  transform: translate(-2%, -5%);
+}
+
+.modal-size-sm {
+  position: absolute;
+  margin-top: 90px;
+  margin-left: 445px;
+  padding: 15px 15px 15px 15px;
+  width: 550px;
   background-color: white;
   border: 0px solid wheat;
   transform: translate(-2%, -5%);
