@@ -32,7 +32,7 @@ const CreateVendorModal = ({ open, onClose }: ModalProps) => {
       <form onSubmit={handleSubmit}>
         <Box
           sx={{
-            "& .MuiTextField-root": { m: 1, width: "55ch" },
+            "& .MuiTextField-root": { m: 1, width: "35ch" },
           }}
           className="modal-size-md"
         >
