@@ -1,7 +1,10 @@
 // ModalComponent.tsx
 import React, { useEffect, useState } from "react";
 import Modal from "@mui/material/Modal";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+import { VendorDataItems } from "./VendorDataTypes";
+import { useFormik } from "formik";
+import { CreateVendorValidation } from "./CreateVendorValidation";
 interface EditModalProps {
   open: boolean;
   onClose: () => void;
@@ -40,12 +43,10 @@ const EditVendorModal: React.FC<EditModalProps> = ({
     // Fetch data based on selectedRowId
     const fetchData = async () => {
       // Simulated API call
-      const response = await fetch(
-        `/data.json`
-      );
+      const response = await fetch(`/data.json`);
       const data = await response.json();
 
-  //console.log("data", data);
+  console.log("data", data);
       setSelectedRow(data);
       setUsers(data);
     };
@@ -60,14 +61,15 @@ const EditVendorModal: React.FC<EditModalProps> = ({
     setFetchValue(userd);
    
   }
-  console.log("Save fetchValue:", fetchUserById.name);
-
-  const handleSave = () => {
-    // Handle saving the edited row data
-    // console.log("Save data:", selectedRow);
-    onClose();
-  };
-
+  console.log("Save fetchValue : users", fetchValue);
+  const { values, handleBlur, handleChange, handleSubmit, errors } =
+    useFormik<VendorDataItems>({
+      initialValues: setFetchValue,
+      validationSchema: CreateVendorValidation,
+      onSubmit: (values: any) => {
+        console.log("values", values);
+      },
+    });
 
   
   return (
@@ -75,28 +77,74 @@ const EditVendorModal: React.FC<EditModalProps> = ({
       open={open}
       onClose={onClose}
       keepMounted
-      //  open={open}
-      //  onClose={handleClose}
       aria-labelledby="keep-mounted-modal-title"
       aria-describedby="keep-mounted-modal-description"
     >
-      <Box className="modal-size-lg">
-        <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
-          Text in a modal
-        </Typography>
-        <Typography id="keep-mounted-modal-description" sx={{ mt: 2 }}>
-          Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-        </Typography>
-        <TextField
-          label="Name"
-          //  value={selectedRow.name}
-          // onChange={(e) =>
-          //   setSelectedRow((prev: unknown) => ({ ...prev, name: e.target.value }))
-          // }
-        />
-        <Button onClick={handleSave}>Save</Button>
-        <Button onClick={onClose}>Cancel</Button>
-      </Box>
+      <form onSubmit={handleSubmit}>
+        <Box
+          sx={{
+            "& .MuiTextField-root": { m: 1, width: "35ch" },
+          }}
+          className="modal-size-md"
+        >
+          <Grid container spacing={1}>
+            <Grid item xs={12} sm={4}>
+              <TextField
+                name="name"
+                id="name"
+                fullWidth
+                label="Last Name"
+                variant="outlined"
+                onChange={handleChange}
+                onBlur={handleBlur}
+              //  value={setFetchValue.name}
+              />
+              {Touch.name && errors.name && (
+                <div className="validation-message-color">{errors.name}</div>
+              )}
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <TextField
+                name="secondname"
+                id="secondname"
+                fullWidth
+                label="Last Name"
+                variant="outlined"
+              />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <TextField fullWidth label="Email" variant="outlined" />
+            </Grid>
+          </Grid>
+          <Grid container spacing={1}>
+            <Grid item xs={12} sm={4}>
+              <TextField fullWidth label="Last Name" variant="outlined" />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <TextField fullWidth label="Last Name" variant="outlined" />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <TextField fullWidth label="Email" variant="outlined" />
+            </Grid>
+          </Grid>
+          <Grid container spacing={1}>
+            <Grid item xs={12} sm={4}>
+              <TextField fullWidth label="Last Name" variant="outlined" />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <TextField fullWidth label="Last Name" variant="outlined" />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <TextField fullWidth label="Email" variant="outlined" />
+            </Grid>
+          </Grid>
+
+          <Button onClick={onClose}>Cancel</Button>
+          <Button type="submit" variant="contained">
+            Create
+          </Button>
+        </Box>
+      </form>
     </Modal>
   );
 };
