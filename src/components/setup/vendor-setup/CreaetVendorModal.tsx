@@ -1,5 +1,5 @@
 import Modal from "@mui/material/Modal";
-import { Box, Button, Grid, TextField } from "@mui/material";
+import { Autocomplete, Box, Button, Grid, TextField } from "@mui/material";
 import { useFormik } from 'formik';
 import { VendorDataItems } from "./VendorDataTypes";
 import { CreateVendorValidation } from "./CreateVendorValidation";
@@ -11,6 +11,20 @@ const initialValues = {
   name: "",
   id: 0
 };
+
+const top100Films = [
+  { title: "The Shawshank Redemption", year: 1994 },
+  { title: "The Godfather", year: 1972 },
+  { title: "The Godfather: Part II", year: 1974 },
+  { title: "The Dark Knight", year: 2008 },
+  { title: "12 Angry Men", year: 1957 },
+  { title: "Schindler's List", year: 1993 },
+  { title: "Pulp Fiction", year: 1994 },
+  {
+    title: "The Lord of the Rings: The Return of the King",
+    year: 2003,
+  }
+];
 const CreateVendorModal = ({ open, onClose }: ModalProps) => {
   const { values, handleBlur, handleChange, handleSubmit, errors } =
     useFormik<VendorDataItems>({
@@ -42,7 +56,7 @@ const CreateVendorModal = ({ open, onClose }: ModalProps) => {
                 name="name"
                 id="name"
                 fullWidth
-                label="Last Name"
+                label="Vendor Name"
                 variant="outlined"
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -54,37 +68,142 @@ const CreateVendorModal = ({ open, onClose }: ModalProps) => {
             </Grid>
             <Grid item xs={12} sm={4}>
               <TextField
-                name="secondname"
-                id="secondname"
+                name="address"
+                id="address"
                 fullWidth
-                label="Last Name"
+                label="Vendor Address"
                 variant="outlined"
               />
             </Grid>
             <Grid item xs={12} sm={4}>
-              <TextField fullWidth label="Email" variant="outlined" />
+              <Autocomplete
+                freeSolo
+                id="free-solo-2-demo"
+                disableClearable
+                options={top100Films.map((option) => option.title)}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Vendoer Type"
+                    InputProps={{
+                      ...params.InputProps,
+                      type: "search",
+                    }}
+                  />
+                )}
+              />
             </Grid>
           </Grid>
           <Grid container spacing={1}>
             <Grid item xs={12} sm={4}>
-              <TextField fullWidth label="Last Name" variant="outlined" />
+              <Autocomplete
+                freeSolo
+                id="free-solo-2-demo"
+                disableClearable
+                options={top100Films.map((option) => option.title)}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Vendoer Country Type"
+                    InputProps={{
+                      ...params.InputProps,
+                      type: "search",
+                    }}
+                  />
+                )}
+              />
             </Grid>
             <Grid item xs={12} sm={4}>
-              <TextField fullWidth label="Last Name" variant="outlined" />
+              <Autocomplete
+                freeSolo
+                id="free-solo-2-demo"
+                disableClearable
+                options={top100Films.map((option) => option.title)}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Vendoer Country"
+                    InputProps={{
+                      ...params.InputProps,
+                      type: "search",
+                    }}
+                  />
+                )}
+              />
             </Grid>
             <Grid item xs={12} sm={4}>
-              <TextField fullWidth label="Email" variant="outlined" />
+              <Autocomplete
+                freeSolo
+                id="free-solo-2-demo"
+                disableClearable
+                options={top100Films.map((option) => option.title)}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Office Name"
+                    InputProps={{
+                      ...params.InputProps,
+                      type: "search",
+                    }}
+                  />
+                )}
+              />
             </Grid>
           </Grid>
           <Grid container spacing={1}>
             <Grid item xs={12} sm={4}>
-              <TextField fullWidth label="Last Name" variant="outlined" />
+              <Autocomplete
+                freeSolo
+                id="free-solo-2-demo"
+                disableClearable
+                options={top100Films.map((option) => option.title)}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Office Location"
+                    InputProps={{
+                      ...params.InputProps,
+                      type: "search",
+                    }}
+                  />
+                )}
+              />
             </Grid>
             <Grid item xs={12} sm={4}>
-              <TextField fullWidth label="Last Name" variant="outlined" />
+              <Autocomplete
+                freeSolo
+                id="free-solo-2-demo"
+                disableClearable
+                options={top100Films.map((option) => option.title)}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Phone"
+                    InputProps={{
+                      ...params.InputProps,
+                      type: "search",
+                    }}
+                  />
+                )}
+              />
             </Grid>
             <Grid item xs={12} sm={4}>
-              <TextField fullWidth label="Email" variant="outlined" />
+              <Autocomplete
+                freeSolo
+                id="free-solo-2-demo"
+                disableClearable
+                options={top100Films.map((option) => option.title)}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Organization"
+                    InputProps={{
+                      ...params.InputProps,
+                      type: "search",
+                    }}
+                  />
+                )}
+              />
             </Grid>
           </Grid>
 
