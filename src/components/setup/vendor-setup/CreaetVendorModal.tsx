@@ -68,13 +68,14 @@ const CreateVendorModal = ({ open, onClose }: ModalProps) => {
             </Grid>
             <Grid item xs={12} sm={4}>
               <TextField
-                name="address"
-                id="address"
+                name="vendoerDescription"
+                id="vendoerDescription"
                 fullWidth
-                label="Vendor Address"
+                label="Vendor Description"
                 variant="outlined"
               />
             </Grid>
+
             <Grid item xs={12} sm={4}>
               <Autocomplete
                 freeSolo
@@ -85,6 +86,8 @@ const CreateVendorModal = ({ open, onClose }: ModalProps) => {
                   <TextField
                     {...params}
                     label="Vendoer Type"
+                    name="vendorType"
+                    id="vendorType"
                     InputProps={{
                       ...params.InputProps,
                       type: "search",
@@ -132,59 +135,32 @@ const CreateVendorModal = ({ open, onClose }: ModalProps) => {
               />
             </Grid>
             <Grid item xs={12} sm={4}>
-              <Autocomplete
-                freeSolo
-                id="free-solo-2-demo"
-                disableClearable
-                options={top100Films.map((option) => option.title)}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Office Name"
-                    InputProps={{
-                      ...params.InputProps,
-                      type: "search",
-                    }}
-                  />
-                )}
+              <TextField
+                name="officeName"
+                id="officeName"
+                fullWidth
+                label="Vendor Office Name"
+                variant="outlined"
               />
             </Grid>
           </Grid>
           <Grid container spacing={1}>
             <Grid item xs={12} sm={4}>
-              <Autocomplete
-                freeSolo
-                id="free-solo-2-demo"
-                disableClearable
-                options={top100Films.map((option) => option.title)}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Office Location"
-                    InputProps={{
-                      ...params.InputProps,
-                      type: "search",
-                    }}
-                  />
-                )}
+              <TextField
+                name="vendorOfficeLocation"
+                id="vendorOfficeLocation"
+                fullWidth
+                label="Vendor Office Location"
+                variant="outlined"
               />
             </Grid>
             <Grid item xs={12} sm={4}>
-              <Autocomplete
-                freeSolo
-                id="free-solo-2-demo"
-                disableClearable
-                options={top100Films.map((option) => option.title)}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Phone"
-                    InputProps={{
-                      ...params.InputProps,
-                      type: "search",
-                    }}
-                  />
-                )}
+              <TextField
+                name="vendoerPhone"
+                id="vendoerPhone"
+                fullWidth
+                label="Vendor Phone"
+                variant="outlined"
               />
             </Grid>
             <Grid item xs={12} sm={4}>
