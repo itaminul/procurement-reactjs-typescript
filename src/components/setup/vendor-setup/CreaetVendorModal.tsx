@@ -1,16 +1,31 @@
 import Modal from "@mui/material/Modal";
-import { Autocomplete, Box, Button, Grid, TextField } from "@mui/material";
+import { Autocomplete, Box, Button, Grid, TextField, Select, MenuItem } from "@mui/material";
 import { useFormik } from 'formik';
 import { VendorDataItems } from "./VendorDataTypes";
 import { CreateVendorValidation } from "./CreateVendorValidation";
+import FormControl from '@material-ui/core/FormControl';
 interface ModalProps {
   open: boolean;
   onClose: () => void
 }
 const initialValues = {
   name: "",
-  id: 0
+  id: 0,
+  vendorType: ''
 };
+
+interface Option {
+  label: string;
+  value: string;
+}
+
+const options: Option[] = [
+  { label: 'Option 1', value: 'option1' },
+  { label: 'Option 2', value: 'option2' },
+  { label: 'Option 3', value: 'option3' },
+];
+
+
 
 const top100Films = [
   { title: "The Shawshank Redemption", year: 1994 },
@@ -77,24 +92,25 @@ const CreateVendorModal = ({ open, onClose }: ModalProps) => {
             </Grid>
 
             <Grid item xs={12} sm={4}>
-              <Autocomplete
-                freeSolo
-                id="free-solo-2-demo"
-                disableClearable
-                options={top100Films.map((option) => option.title)}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Vendoer Type"
-                    name="vendorType"
-                    id="vendorType"
-                    InputProps={{
-                      ...params.InputProps,
-                      type: "search",
-                    }}
-                  />
-                )}
-              />
+            <Select
+            id="vendorType"
+            name="vendorType"
+              sx={{
+            marginTop:1,        
+                width: 318,
+                height: 55,
+              }}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.vendorType}
+            >
+             
+              <MenuItem value={1}>Red</MenuItem>
+              <MenuItem value={2}>Black</MenuItem>
+              <MenuItem value={3}>Blue</MenuItem>
+              <MenuItem value={4}>Green</MenuItem>
+              <MenuItem value={5}>Yellow</MenuItem>
+            </Select>
             </Grid>
           </Grid>
           <Grid container spacing={1}>
