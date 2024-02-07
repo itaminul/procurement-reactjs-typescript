@@ -3,8 +3,6 @@ import { Autocomplete, Box, Button, Grid, TextField, Select, MenuItem } from "@m
 import { useFormik } from 'formik';
 import { VendorDataItems } from "./VendorDataTypes";
 import { CreateVendorValidation } from "./CreateVendorValidation";
-import FormControl from '@material-ui/core/FormControl';
-import { useField } from "formik";
 import { number, string } from "yup";
 interface ModalProps {
   open: boolean;
@@ -13,8 +11,7 @@ interface ModalProps {
 const initialValues = {
   name: "",
   id: 0,
-  vendorType: 0
-  id: null,
+  vendorType: 0,
   vendorType: null,
   vendorCountryType: null,
   vendorCountry: null,
@@ -56,7 +53,8 @@ const CreateVendorModal = ({ open, onClose }: ModalProps) => {
       },
     });
   return (
-    <Modal
+  <>
+      <Modal
       open={open}
       onClose={onClose}
       keepMounted
@@ -96,29 +94,8 @@ const CreateVendorModal = ({ open, onClose }: ModalProps) => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={4}>
-              <Select
-                id="vendorType"
-                name="vendorType"
-                sx={{
-                  marginTop: 1,
-                  width: 318,
-                  height: 55,
-                }}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.vendorType}
-              >
-                <option value="" disabled>
-                  Select an option
-                </option>
-                <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option>
-              </Select>
-              {Touch.name && errors.name && (
-                <div className="validation-message-color">
-                  {errors.name}
-                </div>
+            <Grid item xs={12} sm={4}>          
+
             <Select            
             id="vendorType"
             name="vendorType"
@@ -267,6 +244,7 @@ const CreateVendorModal = ({ open, onClose }: ModalProps) => {
         </Box>
       </form>
     </Modal>
+  </>
   );
 };
 
