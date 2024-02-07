@@ -6,7 +6,6 @@ import { CreateVendorValidation } from "./CreateVendorValidation";
 import FormControl from '@material-ui/core/FormControl';
 import { useField } from "formik";
 import { number, string } from "yup";
-
 interface ModalProps {
   open: boolean;
   onClose: () => void
@@ -15,6 +14,14 @@ const initialValues = {
   name: "",
   id: 0,
   vendorType: 0
+  id: null,
+  vendorType: null,
+  vendorCountryType: null,
+  vendorCountry: null,
+  officeName: "",
+  vendorOfficeName: "",
+  vendorOfficeLocation: "",
+  vendoerPhone: ""
 };
 
 interface Option {
@@ -112,45 +119,79 @@ const CreateVendorModal = ({ open, onClose }: ModalProps) => {
                 <div className="validation-message-color">
                   {errors.name}
                 </div>
+            <Select            
+            id="vendorType"
+            name="vendorType"
+              sx={{
+            marginTop:1,        
+                width: 318,
+                height: 55,
+              }}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.vendorType}
+            >
+              <MenuItem value={1}>Red</MenuItem>
+              <MenuItem value={2}>Black</MenuItem>
+              <MenuItem value={3}>Blue</MenuItem>
+              <MenuItem value={4}>Green</MenuItem>
+              <MenuItem value={5}>Yellow</MenuItem>
+            </Select>
+            {Touch.name && errors.vendorType && (
+                <div className="validation-message-color">{errors.vendorType}</div>
+
               )}
             </Grid>
           </Grid>
           <Grid container spacing={1}>
             <Grid item xs={12} sm={4}>
-              <Autocomplete
-                freeSolo
-                id="free-solo-2-demo"
-                disableClearable
-                options={top100Films.map((option) => option.title)}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Vendoer Country Type"
-                    InputProps={{
-                      ...params.InputProps,
-                      type: "search",
-                    }}
-                  />
-                )}
-              />
+
+            <Select            
+            id="vendorCountryType"
+            name="vendorCountryType"
+              sx={{
+            marginTop:1,        
+                width: 318,
+                height: 55,
+              }}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.vendorCountryType}
+            >
+              <MenuItem value={1}>Red</MenuItem>
+              <MenuItem value={2}>Black</MenuItem>
+              <MenuItem value={3}>Blue</MenuItem>
+              <MenuItem value={4}>Green</MenuItem>
+              <MenuItem value={5}>Yellow</MenuItem>
+            </Select>
+            {Touch.name && errors.vendorCountryType && (
+                <div className="validation-message-color">{errors.vendorCountryType}</div>
+              )}            
             </Grid>
             <Grid item xs={12} sm={4}>
-              <Autocomplete
-                freeSolo
-                id="free-solo-2-demo"
-                disableClearable
-                options={top100Films.map((option) => option.title)}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Vendoer Country"
-                    InputProps={{
-                      ...params.InputProps,
-                      type: "search",
-                    }}
-                  />
-                )}
-              />
+
+            <Select            
+            id="vendorCountry"
+            name="vendorCountry"
+              sx={{
+            marginTop:1,        
+                width: 318,
+                height: 55,
+              }}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.vendorCountry}
+            >
+              <MenuItem value={1}>Red</MenuItem>
+              <MenuItem value={2}>Black</MenuItem>
+              <MenuItem value={3}>Blue</MenuItem>
+              <MenuItem value={4}>Green</MenuItem>
+              <MenuItem value={5}>Yellow</MenuItem>
+            </Select>
+            {Touch.name && errors.vendorCountry && (
+                <div className="validation-message-color">{errors.vendorCountry}</div>
+              )}       
+
             </Grid>
             <Grid item xs={12} sm={4}>
               <TextField
@@ -159,7 +200,13 @@ const CreateVendorModal = ({ open, onClose }: ModalProps) => {
                 fullWidth
                 label="Vendor Office Name"
                 variant="outlined"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.vendorOfficeName}
               />
+               {Touch.name && errors.vendorOfficeName && (
+                <div className="validation-message-color">{errors.vendorOfficeName}</div>
+              )}  
             </Grid>
           </Grid>
           <Grid container spacing={1}>
@@ -170,7 +217,13 @@ const CreateVendorModal = ({ open, onClose }: ModalProps) => {
                 fullWidth
                 label="Vendor Office Location"
                 variant="outlined"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.vendorOfficeLocation}
               />
+              {Touch.name && errors.vendorOfficeLocation && (
+                <div className="validation-message-color">{errors.vendorOfficeLocation}</div>
+              )} 
             </Grid>
             <Grid item xs={12} sm={4}>
               <TextField
@@ -179,7 +232,13 @@ const CreateVendorModal = ({ open, onClose }: ModalProps) => {
                 fullWidth
                 label="Vendor Phone"
                 variant="outlined"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.vendoerPhone}
               />
+              {Touch.name && errors.vendoerPhone && (
+                <div className="validation-message-color">{errors.vendoerPhone}</div>
+              )} 
             </Grid>
             <Grid item xs={12} sm={4}>
               <Autocomplete
