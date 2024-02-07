@@ -4,6 +4,9 @@ import { useFormik } from 'formik';
 import { VendorDataItems } from "./VendorDataTypes";
 import { CreateVendorValidation } from "./CreateVendorValidation";
 import FormControl from '@material-ui/core/FormControl';
+import { useField } from "formik";
+import { number, string } from "yup";
+
 interface ModalProps {
   open: boolean;
   onClose: () => void
@@ -11,7 +14,7 @@ interface ModalProps {
 const initialValues = {
   name: "",
   id: 0,
-  vendorType: ''
+  vendorType: 0
 };
 
 interface Option {
@@ -35,16 +38,11 @@ const top100Films = [
   { title: "12 Angry Men", year: 1957 },
   { title: "Schindler's List", year: 1993 },
   { title: "Pulp Fiction", year: 1994 },
-  {
-    title: "The Lord of the Rings: The Return of the King",
-    year: 2003,
-  }
 ];
 const CreateVendorModal = ({ open, onClose }: ModalProps) => {
   const { values, handleBlur, handleChange, handleSubmit, errors } =
     useFormik<VendorDataItems>({
       initialValues:initialValues,
-
       validationSchema: CreateVendorValidation,
       onSubmit: (values: any) => {
         console.log("values", values);
@@ -92,25 +90,29 @@ const CreateVendorModal = ({ open, onClose }: ModalProps) => {
             </Grid>
 
             <Grid item xs={12} sm={4}>
-            <Select
-            id="vendorType"
-            name="vendorType"
-              sx={{
-            marginTop:1,        
-                width: 318,
-                height: 55,
-              }}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.vendorType}
-            >
-             
-              <MenuItem value={1}>Red</MenuItem>
-              <MenuItem value={2}>Black</MenuItem>
-              <MenuItem value={3}>Blue</MenuItem>
-              <MenuItem value={4}>Green</MenuItem>
-              <MenuItem value={5}>Yellow</MenuItem>
-            </Select>
+              <Select
+                id="vendorType"
+                name="vendorType"
+                sx={{
+                  marginTop: 1,
+                  width: 318,
+                  height: 55,
+                }}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.vendorType}
+              >
+                <option value="" disabled>
+                  Select an option
+                </option>
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+              </Select>
+              {Touch.name && errors.name && (
+                <div className="validation-message-color">
+                  {errors.name}
+                </div>
+              )}
             </Grid>
           </Grid>
           <Grid container spacing={1}>
