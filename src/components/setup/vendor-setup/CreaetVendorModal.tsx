@@ -3,12 +3,17 @@ import { Autocomplete, Box, Button, Grid, TextField, Select, MenuItem } from "@m
 import { useFormik } from 'formik';
 import { VendorDataItems } from "./VendorDataTypes";
 import { CreateVendorValidation } from "./CreateVendorValidation";
+import FormControl from '@material-ui/core/FormControl';
+import { useField } from "formik";
+import { number, string } from "yup";
 interface ModalProps {
   open: boolean;
   onClose: () => void
 }
 const initialValues = {
   name: "",
+  id: 0,
+  vendorType: 0
   id: null,
   vendorType: null,
   vendorCountryType: null,
@@ -30,7 +35,7 @@ const options: Option[] = [
   { label: 'Option 3', value: 'option3' },
 ];
 
-//01537 70 91 95
+
 
 const top100Films = [
   { title: "The Shawshank Redemption", year: 1994 },
@@ -40,10 +45,6 @@ const top100Films = [
   { title: "12 Angry Men", year: 1957 },
   { title: "Schindler's List", year: 1993 },
   { title: "Pulp Fiction", year: 1994 },
-  {
-    title: "The Lord of the Rings: The Return of the King",
-    year: 2003,
-  }
 ];
 const CreateVendorModal = ({ open, onClose }: ModalProps) => {
   const { values, handleBlur, handleChange, handleSubmit, errors } =
@@ -96,6 +97,28 @@ const CreateVendorModal = ({ open, onClose }: ModalProps) => {
             </Grid>
 
             <Grid item xs={12} sm={4}>
+              <Select
+                id="vendorType"
+                name="vendorType"
+                sx={{
+                  marginTop: 1,
+                  width: 318,
+                  height: 55,
+                }}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.vendorType}
+              >
+                <option value="" disabled>
+                  Select an option
+                </option>
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+              </Select>
+              {Touch.name && errors.name && (
+                <div className="validation-message-color">
+                  {errors.name}
+                </div>
             <Select            
             id="vendorType"
             name="vendorType"
@@ -116,6 +139,7 @@ const CreateVendorModal = ({ open, onClose }: ModalProps) => {
             </Select>
             {Touch.name && errors.vendorType && (
                 <div className="validation-message-color">{errors.vendorType}</div>
+
               )}
             </Grid>
           </Grid>
