@@ -3,6 +3,7 @@ import { Autocomplete, Box, Button, Grid, TextField, Select, MenuItem } from "@m
 import { useFormik } from 'formik';
 import { VendorDataItems } from "./VendorDataTypes";
 import { CreateVendorValidation } from "./CreateVendorValidation";
+import { useGetVendoerSetupQuery } from "../../../redux/services/vendoerSetupAPI"; 
 import { number, string } from "yup";
 interface ModalProps {
   open: boolean;
@@ -11,7 +12,6 @@ interface ModalProps {
 const initialValues = {
   name: "",
   id: 0,
-  vendorType: 0,
   vendorType: null,
   vendorCountryType: null,
   vendorCountry: null,
@@ -44,6 +44,8 @@ const top100Films = [
   { title: "Pulp Fiction", year: 1994 },
 ];
 const CreateVendorModal = ({ open, onClose }: ModalProps) => {
+  const { data } = useGetVendoerSetupQuery();
+  console.log("get data", data);
   const { values, handleBlur, handleChange, handleSubmit, errors } =
     useFormik<VendorDataItems>({
       initialValues:initialValues,
@@ -172,8 +174,8 @@ const CreateVendorModal = ({ open, onClose }: ModalProps) => {
             </Grid>
             <Grid item xs={12} sm={4}>
               <TextField
-                name="officeName"
-                id="officeName"
+                name="vendorOfficeName"
+                id="vendorOfficeName"
                 fullWidth
                 label="Vendor Office Name"
                 variant="outlined"

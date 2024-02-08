@@ -3,18 +3,18 @@ import authReducer from "./features/authSlice";
 import drawerReducer from './features/drawerSlice'
 import breadcrumbsSlice from './features/breadcrumbsSlice';
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
-import { vendorSetupApi } from "./services/vendoerSetupAPI";
+import { vendorSetupAPI } from "./services/vendoerSetupAPI";
 
 const rootReducer = combineReducers({
   auth: authReducer,
   drawer: drawerReducer,
   breadcrumbs: breadcrumbsSlice,
-  [vendorSetupApi.reducerPath]: vendorSetupApi.reducer,
+  [vendorSetupAPI.reducerPath]: vendorSetupAPI.reducer,
 });
 
 const middleware = (getDefaultMiddleware: () => any[]) =>
   getDefaultMiddleware().concat([
-    vendorSetupApi.middleware
+    vendorSetupAPI.middleware
   ]);
 
 export const store = configureStore({

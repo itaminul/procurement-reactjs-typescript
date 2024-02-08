@@ -1,19 +1,25 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { VendorDataItems } from "../../components/setup/vendor-setup/VendorDataTypes";
-
-export const vendorSetupApi = createApi({
-  reducerPath: "vendorSetupApi",
+// const BASE_URL = `${process.env.BACKEND_URL}`
+const BASE_URL = `${process.env.BACKEND_UTL}`
+export const vendorSetupAPI = createApi({
+  reducerPath: "vendorSetupAPI",
   baseQuery: fetchBaseQuery({
-    baseUrl: "aaa",
+    baseUrl: BASE_URL,
   }),
   endpoints: (builder) => ({
     getVendoerSetup: builder.query<VendorDataItems[], void>({
-      query: () => "vendorSetup",
-      // transformResponse: (response: any) => {
-
-      // }
-    }),
+      query: () => "vendorsetup",
+      transformResponse: (response: any) => {
+        const formatedData = response.results?.map((item: any) => {
+          id: item.id;
+          vendoerName: item.vendoerName;
+          vendoerDescription: item.vendoerDescription;
+        })
+        return formatedData;
+      }     
+    }),    
   }),
 });
 
-export const { useGetVendoerSetupQuery } = vendorSetupApi;
+export const { useGetVendoerSetupQuery } = vendorSetupAPI;
