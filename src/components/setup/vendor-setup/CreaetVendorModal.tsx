@@ -45,7 +45,7 @@ const top100Films = [
 ];
 const CreateVendorModal = ({ open, onClose }: ModalProps) => {
   const { data } = useGetVendoerSetupQuery();
-  console.log("get data", data);
+  console.log("get data value", data);
   const { values, handleBlur, handleChange, handleSubmit, errors } =
     useFormik<VendorDataItems>({
       initialValues:initialValues,
