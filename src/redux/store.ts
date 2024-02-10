@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   [vendorSetupAPI.reducerPath]: vendorSetupAPI.reducer,
 });
 
-const middleware = (getDefaultMiddleware: () => any[]) =>
+const middleware = (getDefaultMiddleware: any) =>
   getDefaultMiddleware().concat([
     vendorSetupAPI.middleware
   ]);
