@@ -6,7 +6,7 @@ console.log("show base url", BASE_URL);
 export const vendorSetupAPI = createApi({
   reducerPath: "vendorSetupAPI",
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://192.168.0.84:8081',
+    baseUrl: "http://localhost:8081",
   }),
   endpoints: (builder) => ({
     getVendoerSetup: builder.query<VendorDataItems[], void>({
@@ -16,12 +16,31 @@ export const vendorSetupAPI = createApi({
         const formatedData = response.results?.map((item: any) => ({
           id: item.id,
           vendorName: item.vendorName,
-          vendoerDescription: item.vendoerDescription
+          vendoerDescription: item.vendoerDescription,
         }));
-        return formatedData;;
-      }     
-    }),    
+        return formatedData;
+      },
+    }),
+    createVendorSetup: builder.mutation<
+      VendorDataItems,
+      Partial<VendorDataItems>
+    >({
+      query: (createVendor) => ({
+        url: "vendorsetup",
+        method: "POST",
+        body: createVendor,
+      }),
+    }),
+    updateVendorSetup: builder.mutation<void, {id: number; formData: VendorDataItems}>({
+      query: (data) => ({
+        url: `/vendorSetup/${data.id}`,
+        method: 'PATCH',
+        body: data
+      })
+    })
   }),
 });
 
-export const { useGetVendoerSetupQuery } = vendorSetupAPI;
+export const { 
+  useGetVendoerSetupQuery, useCreateVendorSetupMutation, useUpdateVendorSetupMutation
+ } = vendorSetupAPI;
