@@ -8,6 +8,7 @@ export const vendorSetupAPI = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://192.168.0.84:8081",
   }),
+  
   endpoints: (builder) => ({
     getVendoerSetup: builder.query<VendorDataItems[], void>({
       query: () => "vendorsetup",

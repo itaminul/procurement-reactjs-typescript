@@ -34,6 +34,7 @@ const options: Option[] = [
   { label: 'Option 3', value: 'option3' },
 ];
 
+
 const CreateVendorModal = ({ open, onClose }: ModalProps) => {
   const [showSuccessMessage, setShowSuccessMessage] = useState<boolean>(false);
   const { data } = useGetVendoerSetupQuery();

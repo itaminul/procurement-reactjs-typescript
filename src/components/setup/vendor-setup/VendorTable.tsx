@@ -32,6 +32,7 @@ export default function VendorTable() {
     setEditModalOpen(false);
   };
 
+  
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 70 },
     { field: 'vendorName', headerName: 'Vendor Name', width: 150 },

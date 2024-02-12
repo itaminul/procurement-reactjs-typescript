@@ -28,6 +28,7 @@ interface User {
   name: string;
 }
 
+
 const EditVendorModal: React.FC<EditModalProps> = ({
   open,
   onClose,
