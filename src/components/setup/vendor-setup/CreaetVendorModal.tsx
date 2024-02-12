@@ -1,11 +1,14 @@
 import Modal from "@mui/material/Modal";
-import { Box, Button, Grid, TextField, Select, MenuItem } from "@mui/material";
+import  { Box, Button, Grid, TextField, Select, MenuItem } from "@mui/material";
 import { ErrorMessage, useFormik } from 'formik';
 import { VendorDataItems } from "./VendorDataTypes";
 import { CreateVendorValidation } from "./CreateVendorValidation";
 import { useCreateVendorSetupMutation, useGetVendoerSetupQuery } from "../../../redux/services/vendoerSetupAPI"; 
 import { useGetVendorCountrySetupDataQuery } from "../../../redux/services/vendorCountrySetupAPI";
 import { useState } from "react";
+import Snackbar from '@mui/material/Snackbar';
+import { Alert } from '@mui/material';
+
 interface ModalProps {
   open: boolean;
   onClose: () => void
@@ -15,7 +18,6 @@ const initialValues = {
   vendorType: null,
   vendorCountryType: null,
   vendorCountry: null,
-  officeName: "",
   vendorOfficeName: "",
   vendorOfficeLocation: "",
   vendoerPhone: ""
@@ -33,11 +35,10 @@ const options: Option[] = [
 ];
 
 const CreateVendorModal = ({ open, onClose }: ModalProps) => {
-    const [successOpen, setSuccessOpen] = useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState<boolean>(false);
   const { data } = useGetVendoerSetupQuery();
   const { data: vendorCountry } = useGetVendorCountrySetupDataQuery();
   const [ saveVendor ] = useCreateVendorSetupMutation();
-  console.log("get data vendorCountry", vendorCountry);
   const { values, handleBlur, handleChange, handleSubmit, errors } =
     useFormik<VendorDataItems>({
       initialValues:initialValues,
@@ -52,11 +53,15 @@ const CreateVendorModal = ({ open, onClose }: ModalProps) => {
            vendorCountry: values.vendorCountry,
            vendorOfficeName: values.vendorOfficeName,
            vendorOfficeLocation: values.vendorOfficeLocation,
+           vendoerPhone: values.vendoerPhone,
            orgId: Number(values.orgId),
          };
          await saveVendor(fomateData);
-         setSuccessOpen(true);
-         console.log("values", values);
+         setShowSuccessMessage(true);
+         setTimeout(() => {
+          setShowSuccessMessage(false);
+          onClose();
+        }, 2000);
        } catch (error) {
         console.log("error", ErrorMessage)
        }
@@ -249,6 +254,16 @@ const CreateVendorModal = ({ open, onClose }: ModalProps) => {
                 
                 </Grid>
             </Grid>
+
+            <Snackbar
+            open={showSuccessMessage}
+            autoHideDuration={2000}
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          >
+            <Alert severity="success">
+              Data inserted successfully!
+            </Alert>
+          </Snackbar>
 
             <Button onClick={onClose}>Cancel</Button>
             <Button type="submit" variant="contained">

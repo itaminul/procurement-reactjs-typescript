@@ -3,15 +3,17 @@ import { Button } from "@mui/material";
 import CreateVendorModal from "./CreaetVendorModal";
 import EditVendorModal from "./EditVendorModal";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { VendorDataItems } from "./VendorDataTypes";
 import  '../../../styles/modalStyles.scss'
+import { useGetVendoerSetupQuery } from "../../../redux/services/vendoerSetupAPI";
 
 export default function VendorTable() {
-   const [isCreateModalOpen, setCreateModalOpen] = React.useState(false);
+   const [isCreateModalOpen, setCreateModalOpen] = useState(false);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [selectedRowId, setSelectedRowId] = useState<VendorDataItems[] | any>(null);
-
+  const { data: vendorData, isLoading, isError } = useGetVendoerSetupQuery();
+  const { data } = useGetVendoerSetupQuery();
   const handleOpenCreateModal = () => {
     setCreateModalOpen(true);
   };
@@ -32,7 +34,12 @@ export default function VendorTable() {
 
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'name', headerName: 'Name', width: 150 },
+    { field: 'vendorName', headerName: 'Vendor Name', width: 150 },
+    { field: 'vendorType', headerName: 'Vendor Type', width: 150 },
+    { field: 'vendorCountry', headerName: 'Vendor Country', width: 150 },
+    { field: 'vendorOfficeName', headerName: 'Vendor Office', width: 150 },
+    { field: 'vendorOfficeLocation', headerName: 'Office Location', width: 150 },
+    { field: 'vendoerPhone', headerName: 'Phone', width: 150 },
     {
       field: 'actions',
       headerName: 'Actions',
@@ -44,19 +51,14 @@ export default function VendorTable() {
       ),
     },
   ];
+  
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
-
-  const [setUsers, setsetUsers] = useState<VendorDataItems[]>([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(`/data.json`);
-      const data = await response.json();
-      setsetUsers(data);
-    }; 
-      fetchData();    
-  }, []);
-
-  const rows = setUsers
+  if (isError) {
+    return <div>Error fetching data</div>;
+  }
 
   return (
     <div>
@@ -64,7 +66,7 @@ export default function VendorTable() {
 
       {/* Data Table */}
       <div style={{ height: 400, width: '250%' }}>
-        <DataGrid rows={setUsers} columns={columns} />
+        <DataGrid rows={vendorData || []} columns={columns} />
       </div>   
       <CreateVendorModal open={isCreateModalOpen} onClose={handleCloseCreateModal} />   
       <EditVendorModal
