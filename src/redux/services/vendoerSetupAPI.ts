@@ -27,6 +27,16 @@ export const vendorSetupAPI = createApi({
         return formatedData;
       },
     }),
+    getVendorInformationById: builder.query<VendorDataItems[], number>({
+      query: (id) => `vendorsetup/getVendorById/${id}`,
+      transformResponse: (response: any) => {
+        return  response.results;
+        // return res;
+        // console.log("res", res);
+        // return res.json();
+      }
+
+    }),
     createVendorSetup: builder.mutation<
       VendorDataItems,
       Partial<VendorDataItems>
@@ -48,5 +58,8 @@ export const vendorSetupAPI = createApi({
 });
 
 export const { 
-  useGetVendoerSetupQuery, useCreateVendorSetupMutation, useUpdateVendorSetupMutation
+  useGetVendoerSetupQuery,
+  useCreateVendorSetupMutation, 
+  useUpdateVendorSetupMutation, 
+  useGetVendorInformationByIdQuery
  } = vendorSetupAPI;

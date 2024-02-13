@@ -6,10 +6,21 @@ import { VendorDataItems } from "./VendorDataTypes";
 import { useFormik } from "formik";
 import { CreateVendorValidation } from "./CreateVendorValidation";
 import { useGetVendorCountrySetupDataQuery } from "../../../redux/services/vendorCountrySetupAPI";
+import { useGetVendorInformationByIdQuery } from "../../../redux/services/vendoerSetupAPI";
+
+const initialValues = {
+  vendorName: null,
+  vendorType: null,
+  vendorCountryType: null,
+  vendorCountry: null,
+  vendorOfficeName: "",
+  vendorOfficeLocation: "",
+  vendoerPhone: ""
+};
 interface EditModalProps {
   open: boolean;
   onClose: () => void;
-  selectedRowId: number | null;
+  selectedRowId: number;
 }
 
 interface VendorTypes {
@@ -38,6 +49,7 @@ const EditVendorModal: React.FC<EditModalProps> = ({
 
   const [showSuccessMessage, setShowSuccessMessage] = useState<boolean>(false);
   const { data: vendorCountry } = useGetVendorCountrySetupDataQuery();  
+  const { data: vendorInfoById } = useGetVendorInformationByIdQuery(selectedRowId);
   const [users, setUsers] = useState<User[]>([]);
   const [selectedRow, setSelectedRow] = useState<User | any>(null);
   const [fetchValue, setFetchValue] = useState<any>(null);
@@ -49,8 +61,6 @@ const EditVendorModal: React.FC<EditModalProps> = ({
       // Simulated API call
       const response = await fetch(`/data.json`);
       const data = await response.json();
-
-  console.log("data", data);
       setSelectedRow(data);
       setUsers(data);
     };
@@ -65,16 +75,16 @@ const EditVendorModal: React.FC<EditModalProps> = ({
     setFetchValue(userd);
    
   }
-  console.log("Save fetchValue : users", selectedRowId);
+
   const { values, handleBlur, handleChange, handleSubmit, errors } =
     useFormik<VendorDataItems>({
-      initialValues: setFetchValue,
+      initialValues: initialValues,
       validationSchema: CreateVendorValidation,
       onSubmit: (values: any) => {
         console.log("values", values);
       },
     });
-
+console.log("vendorInfoById", vendorInfoById);
   
   return (
     <Modal
@@ -97,11 +107,11 @@ const EditVendorModal: React.FC<EditModalProps> = ({
                   name="vendorName"
                   id="vendorName"
                   fullWidth
-                  label="Vendor Name"
+                  // label="Vendor Name"
                   variant="outlined"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values.vendorName}
+                  value={vendorInfoById?.vendorName}
                 />
                 {Touch.name && errors.vendorName && (
                   <div className="validation-message-color">
@@ -114,8 +124,9 @@ const EditVendorModal: React.FC<EditModalProps> = ({
                   name="vendoerDescription"
                   id="vendoerDescription"
                   fullWidth
-                  label="Vendor Description"
+                  // label="Vendor Description"
                   variant="outlined"
+                  value={vendorInfoById?.vendoerDescription}
                 />
               </Grid>
 
@@ -130,7 +141,7 @@ const EditVendorModal: React.FC<EditModalProps> = ({
                   }}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values.vendorType}
+                  value={vendorInfoById?.vendorType}
                 >
                   {vendorCountry?.map((vendorCountr) => (
                     <MenuItem value={1}>{vendorCountr.countryName}</MenuItem>
@@ -155,7 +166,7 @@ const EditVendorModal: React.FC<EditModalProps> = ({
                   }}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values.vendorCountryType}
+                  value={vendorInfoById?.vendorCountryType}
                 >
                   {vendorCountry?.map((vendorCountr) => (
                     <MenuItem value={1}>{vendorCountr.countryName}</MenuItem>
@@ -178,7 +189,7 @@ const EditVendorModal: React.FC<EditModalProps> = ({
                   }}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values.vendorCountry}
+                  value={vendorInfoById?.vendorCountry}
                 >
                   {vendorCountry?.map((vendorCountr) => (
                     <MenuItem value={1}>{vendorCountr.countryName}</MenuItem>
@@ -195,11 +206,11 @@ const EditVendorModal: React.FC<EditModalProps> = ({
                   name="vendorOfficeName"
                   id="vendorOfficeName"
                   fullWidth
-                  label="Vendor Office Name"
+                  // label="Vendor Office Name"
                   variant="outlined"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values.vendorOfficeName}
+                  value={vendorInfoById?.vendorOfficeName}
                 />
                 {Touch.name && errors.vendorOfficeName && (
                   <div className="validation-message-color">
@@ -214,11 +225,11 @@ const EditVendorModal: React.FC<EditModalProps> = ({
                   name="vendorOfficeLocation"
                   id="vendorOfficeLocation"
                   fullWidth
-                  label="Vendor Office Location"
+                  // label="Vendor Office Location"
                   variant="outlined"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values.vendorOfficeLocation}
+                  value={vendorInfoById?.vendorOfficeLocation}
                 />
                 {Touch.name && errors.vendorOfficeLocation && (
                   <div className="validation-message-color">
@@ -231,11 +242,11 @@ const EditVendorModal: React.FC<EditModalProps> = ({
                   name="vendoerPhone"
                   id="vendoerPhone"
                   fullWidth
-                  label="Vendor Phone"
+                  // label="Vendor Phone"
                   variant="outlined"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values.vendoerPhone}
+                  value={vendorInfoById?.vendoerPhone}
                 />
                 {Touch.name && errors.vendoerPhone && (
                   <div className="validation-message-color">
@@ -254,7 +265,7 @@ const EditVendorModal: React.FC<EditModalProps> = ({
                   }}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values.orgId}
+                  value={vendorInfoById?.orgId}
                 >                
                   <MenuItem value={1}>Abc</MenuItem>
                  
