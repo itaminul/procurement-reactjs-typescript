@@ -28,6 +28,7 @@ interface User {
   name: string;
 }
 
+
 const EditVendorModal: React.FC<EditModalProps> = ({
   open,
   onClose,
@@ -61,7 +62,7 @@ const EditVendorModal: React.FC<EditModalProps> = ({
     setFetchValue(userd);
    
   }
-  console.log("Save fetchValue : users", fetchValue);
+  console.log("Save fetchValue : users", selectedRowId);
   const { values, handleBlur, handleChange, handleSubmit, errors } =
     useFormik<VendorDataItems>({
       initialValues: setFetchValue,
