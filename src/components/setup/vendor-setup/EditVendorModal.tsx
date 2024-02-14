@@ -84,7 +84,17 @@ const EditVendorModal: React.FC<EditModalProps> = ({
         console.log("values", values);
       },
     });
-console.log("vendorInfoById", vendorInfoById);
+
+    const [formData, setFormData] = useState<VendorDataItems[]>({initialValues:initialValues});
+
+    useEffect(() => {
+      if (vendorInfoById) {
+        setFormData(vendorInfoById);
+      }
+    }, [vendorInfoById]);
+
+
+console.log("formData", formData);
   
   return (
     <Modal
@@ -111,7 +121,7 @@ console.log("vendorInfoById", vendorInfoById);
                   variant="outlined"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={vendorInfoById?.vendorName}
+                  value={formData?.vendorName}
                 />
                 {Touch.name && errors.vendorName && (
                   <div className="validation-message-color">
@@ -126,7 +136,7 @@ console.log("vendorInfoById", vendorInfoById);
                   fullWidth
                   // label="Vendor Description"
                   variant="outlined"
-                  value={vendorInfoById?.vendoerDescription}
+                  value={formData?.vendoerDescription}
                 />
               </Grid>
 
@@ -141,10 +151,16 @@ console.log("vendorInfoById", vendorInfoById);
                   }}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={vendorInfoById?.vendorType}
+                  value={formData?.vendorType}
+                  // value={formData?.vendorType === 1 ? "1" : "2"}
                 >
-                  {vendorCountry?.map((vendorCountr) => (
-                    <MenuItem value={1}>{vendorCountr.countryName}</MenuItem>
+                  {vendorCountry?.map((countryValue) => (
+                    <MenuItem 
+                    key={countryValue.id} 
+                    value={countryValue.id} 
+                    selected={countryValue.id === formData?.vendorType}>
+                    {countryValue.countryName}
+                  </MenuItem>
                   ))}
                 </Select>
                 {Touch.name && errors.vendorType && (
@@ -166,10 +182,10 @@ console.log("vendorInfoById", vendorInfoById);
                   }}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={vendorInfoById?.vendorCountryType}
+                  value={formData?.vendorCountryType}
                 >
                   {vendorCountry?.map((vendorCountr) => (
-                    <MenuItem value={1}>{vendorCountr.countryName}</MenuItem>
+                    <MenuItem value={vendorCountr.id}>{vendorCountr.countryName}</MenuItem>
                   ))}
                 </Select>
                 {Touch.name && errors.vendorCountryType && (
@@ -189,10 +205,10 @@ console.log("vendorInfoById", vendorInfoById);
                   }}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={vendorInfoById?.vendorCountry}
+                  value={formData?.vendorCountry}
                 >
                   {vendorCountry?.map((vendorCountr) => (
-                    <MenuItem value={1}>{vendorCountr.countryName}</MenuItem>
+                    <MenuItem value={vendorCountr.id}>{vendorCountr.countryName}</MenuItem>
                   ))}
                 </Select>
                 {Touch.name && errors.vendorCountry && (
@@ -210,7 +226,7 @@ console.log("vendorInfoById", vendorInfoById);
                   variant="outlined"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={vendorInfoById?.vendorOfficeName}
+                  value={formData?.vendorOfficeName}
                 />
                 {Touch.name && errors.vendorOfficeName && (
                   <div className="validation-message-color">
@@ -229,7 +245,7 @@ console.log("vendorInfoById", vendorInfoById);
                   variant="outlined"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={vendorInfoById?.vendorOfficeLocation}
+                  value={formData?.vendorOfficeLocation}
                 />
                 {Touch.name && errors.vendorOfficeLocation && (
                   <div className="validation-message-color">
@@ -246,7 +262,7 @@ console.log("vendorInfoById", vendorInfoById);
                   variant="outlined"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={vendorInfoById?.vendoerPhone}
+                  value={formData?.vendoerPhone}
                 />
                 {Touch.name && errors.vendoerPhone && (
                   <div className="validation-message-color">
