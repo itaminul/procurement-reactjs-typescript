@@ -1,101 +1,75 @@
-// ModalComponent.tsx
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import Modal from "@mui/material/Modal";
-import { Alert, Box, Button, Grid, MenuItem, Select, Snackbar, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, Grid, MenuItem, Select, Snackbar, TextField } from "@mui/material";
 import { VendorDataItems } from "./VendorDataTypes";
 import { useFormik } from "formik";
 import { CreateVendorValidation } from "./CreateVendorValidation";
 import { useGetVendorCountrySetupDataQuery } from "../../../redux/services/vendorCountrySetupAPI";
 import { useGetVendorInformationByIdQuery } from "../../../redux/services/vendoerSetupAPI";
 
-const initialValues = {
-  vendorName: null,
-  vendorType: null,
-  vendorCountryType: null,
-  vendorCountry: null,
-  vendorOfficeName: "",
-  vendorOfficeLocation: "",
-  vendoerPhone: ""
-};
 interface EditModalProps {
   open: boolean;
   onClose: () => void;
   selectedRowId: number;
+  initialValues: VendorDataItems
 }
 
-interface VendorTypes {
-  id: number;
-  name: string;
-  // Add other fields as needed
-}
-
-const Row: VendorTypes[] = [
-  { id: 1, name: 'John Doe' },
-  { id: 2, name: 'Jane Doe' },
-  // Add other rows as needed
-];
-
-interface User {
-  id: number;
-  name: string;
-}
-
-
-const EditVendorModal: React.FC<EditModalProps> = ({
+const EditVendorModal = ({
   open,
   onClose,
-  selectedRowId
-}) => {
+  selectedRowId,
+  initialValues
+}: EditModalProps) => {
 
   const [showSuccessMessage, setShowSuccessMessage] = useState<boolean>(false);
   const { data: vendorCountry } = useGetVendorCountrySetupDataQuery();  
   const { data: vendorInfoById } = useGetVendorInformationByIdQuery(selectedRowId);
-  const [users, setUsers] = useState<User[]>([]);
-  const [selectedRow, setSelectedRow] = useState<User | any>(null);
-  const [fetchValue, setFetchValue] = useState<any>(null);
 
-  // Simulate fetching data based on the selectedRowId
-  useEffect(() => {
-    // Fetch data based on selectedRowId
-    const fetchData = async () => {
-      // Simulated API call
-      const response = await fetch(`/data.json`);
-      const data = await response.json();
-      setSelectedRow(data);
-      setUsers(data);
-    };
-
-    if (selectedRowId !== null) {
-      fetchData();
-    }
-  }, [selectedRowId]);
-
-  const fetchUserById = (selectedRowId: number) => {
-    const userd = users.find(user => user.id === selectedRowId);
-    setFetchValue(userd);
-   
-  }
-
-  const { values, handleBlur, handleChange, handleSubmit, errors } =
-    useFormik<VendorDataItems>({
-      initialValues: initialValues,
-      validationSchema: CreateVendorValidation,
-      onSubmit: (values: any) => {
-        console.log("values", values);
-      },
-    });
-
-    const [formData, setFormData] = useState<VendorDataItems[]>({initialValues:initialValues});
+    const [formData, setFormData] = useState<VendorDataItems>({
+    vendorName: "",
+    vendorType: 0,
+    vendorCountryType: 0,
+    vendorCountry: 0,
+    vendorOfficeName: "",
+    vendorOfficeLocation: "",
+    vendoerPhone: "",
+    orgId: 0
+  });
 
     useEffect(() => {
       if (vendorInfoById) {
         setFormData(vendorInfoById);
       }
-    }, [vendorInfoById]);
+    }, [vendorInfoById]);  
 
 
-console.log("formData", formData);
-  
+  const {values, handleBlur, handleSubmit, handleChange, errors } =
+  useFormik<VendorDataItems>({
+    initialValues: initialValues,
+    validationSchema: CreateVendorValidation,
+    onSubmit: async(values: VendorDataItems) => {
+      try {
+        const fomateData = {
+          vendorName: values.vendorName,
+          vendoerDescription: values.vendoerDescription,
+          vendorType: values.vendorType,
+          vendorCountryType: values.vendorCountryType,
+          vendorCountry: values.vendorCountry,
+          vendorOfficeName: values.vendorOfficeName,
+          vendorOfficeLocation: values.vendorOfficeLocation,
+          vendoerPhone: values.vendoerPhone,
+          orgId: Number(values.orgId),
+        };
+        
+        console.log("values", fomateData);
+      } catch (error) {
+        console.log("error", error);
+      }
+    },
+  });
+
+
+    
   return (
     <Modal
       open={open}
@@ -152,13 +126,11 @@ console.log("formData", formData);
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={formData?.vendorType}
-                  // value={formData?.vendorType === 1 ? "1" : "2"}
                 >
                   {vendorCountry?.map((countryValue) => (
                     <MenuItem 
                     key={countryValue.id} 
-                    value={countryValue.id} 
-                    selected={countryValue.id === formData?.vendorType}>
+                    value={countryValue.id} >
                     {countryValue.countryName}
                   </MenuItem>
                   ))}
@@ -281,7 +253,7 @@ console.log("formData", formData);
                   }}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={vendorInfoById?.orgId}
+                  value={formData?.orgId}
                 >                
                   <MenuItem value={1}>Abc</MenuItem>
                  
@@ -302,7 +274,7 @@ console.log("formData", formData);
 
             <Button onClick={onClose}>Cancel</Button>
             <Button type="submit" variant="contained">
-              Create
+              Update
             </Button>
           </Box>
       </form>
