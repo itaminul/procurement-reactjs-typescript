@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-export const CreateVendorValidation = Yup.object({
+export const CreateVendorValidation = Yup.object().shape({
   vendorName: Yup.string()
     .required("Name is required")
     .min(5, "Minimum lenght of five ")
