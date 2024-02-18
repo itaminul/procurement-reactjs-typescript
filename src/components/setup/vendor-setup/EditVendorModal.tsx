@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import { CreateVendorValidation } from "./CreateVendorValidation";
 import { useGetVendorCountrySetupDataQuery } from "../../../redux/services/vendorCountrySetupAPI";
 import { useGetVendorInformationByIdQuery } from "../../../redux/services/vendoerSetupAPI";
+import { number } from "yup";
 
 interface EditModalProps {
   open: boolean;
@@ -43,7 +44,7 @@ const EditVendorModal = ({
     }, [vendorInfoById]);  
 
 
-  const {values, handleBlur, handleSubmit, handleChange, errors } =
+  const {values, handleSubmit,handleChange, errors } =
   useFormik<VendorDataItems>({
     initialValues: initialValues,
     validationSchema: CreateVendorValidation,
@@ -68,7 +69,29 @@ const EditVendorModal = ({
     },
   });
 
+  
 
+  // const handleVendoerTypeChange = (event: React.ChangeEvent<{ name?: any; value: unknown }>) => {
+    
+  //   setFormData(prevFormData => ({
+  //     ...prevFormData,
+  //     [name as unknown as string]: values as string 
+  //   }));
+  // };
+    
+
+
+  const handleVendoerTypeChange = (event: React.ChangeEvent<{ name?: any; value: unknown }>) => {
+    const { name, value } = event.target;
+    console.log("name", value);
+    handleChange(setFormData({ ...formData,  [name as any]: value}));
+  };
+  const handleBlur = (event: React.FocusEvent<{ name?: any;value: unknown  }>) => {
+    const { name, value } = event.target;
+    console.log("name", value);
+    setFormData({ ...formData,  [name as any]: value});
+  };
+    
     
   return (
     <Modal
@@ -93,7 +116,7 @@ const EditVendorModal = ({
                   fullWidth
                   // label="Vendor Name"
                   variant="outlined"
-                  onChange={handleChange}
+                  onChange={handleVendoerTypeChange}
                   onBlur={handleBlur}
                   value={formData?.vendorName}
                 />
@@ -108,6 +131,7 @@ const EditVendorModal = ({
                   name="vendoerDescription"
                   id="vendoerDescription"
                   fullWidth
+                  onChange={handleVendoerTypeChange}
                   // label="Vendor Description"
                   variant="outlined"
                   value={formData?.vendoerDescription}
@@ -123,7 +147,7 @@ const EditVendorModal = ({
                     width: 318,
                     height: 55,
                   }}
-                  onChange={handleChange}
+                  onChange={handleVendoerTypeChange}
                   onBlur={handleBlur}
                   value={formData?.vendorType}
                 >
@@ -152,12 +176,12 @@ const EditVendorModal = ({
                     width: 318,
                     height: 55,
                   }}
-                  onChange={handleChange}
+                  onChange={handleVendoerTypeChange}
                   onBlur={handleBlur}
                   value={formData?.vendorCountryType}
                 >
                   {vendorCountry?.map((vendorCountr) => (
-                    <MenuItem value={vendorCountr.id}>{vendorCountr.countryName}</MenuItem>
+                    <MenuItem     key={vendorCountr.id}  value={vendorCountr.id}>{vendorCountr.countryName}</MenuItem>
                   ))}
                 </Select>
                 {Touch.name && errors.vendorCountryType && (
@@ -175,12 +199,12 @@ const EditVendorModal = ({
                     width: 318,
                     height: 55,
                   }}
-                  onChange={handleChange}
+                  onChange={handleVendoerTypeChange}
                   onBlur={handleBlur}
                   value={formData?.vendorCountry}
                 >
                   {vendorCountry?.map((vendorCountr) => (
-                    <MenuItem value={vendorCountr.id}>{vendorCountr.countryName}</MenuItem>
+                    <MenuItem     key={vendorCountr.id}  value={vendorCountr.id}>{vendorCountr.countryName}</MenuItem>
                   ))}
                 </Select>
                 {Touch.name && errors.vendorCountry && (
@@ -196,7 +220,7 @@ const EditVendorModal = ({
                   fullWidth
                   // label="Vendor Office Name"
                   variant="outlined"
-                  onChange={handleChange}
+                  onChange={handleVendoerTypeChange}
                   onBlur={handleBlur}
                   value={formData?.vendorOfficeName}
                 />
@@ -215,7 +239,7 @@ const EditVendorModal = ({
                   fullWidth
                   // label="Vendor Office Location"
                   variant="outlined"
-                  onChange={handleChange}
+                  onChange={handleVendoerTypeChange}
                   onBlur={handleBlur}
                   value={formData?.vendorOfficeLocation}
                 />
@@ -232,7 +256,7 @@ const EditVendorModal = ({
                   fullWidth
                   // label="Vendor Phone"
                   variant="outlined"
-                  onChange={handleChange}
+                  onChange={handleVendoerTypeChange}
                   onBlur={handleBlur}
                   value={formData?.vendoerPhone}
                 />
@@ -251,11 +275,11 @@ const EditVendorModal = ({
                     width: 318,
                     height: 55,
                   }}
-                  onChange={handleChange}
+                  onChange={handleVendoerTypeChange}
                   onBlur={handleBlur}
                   value={formData?.orgId}
                 >                
-                  <MenuItem value={1}>Abc</MenuItem>
+                  <MenuItem      key={1}  value={1}>Abc</MenuItem>
                  
                 </Select>
                 
