@@ -6,7 +6,8 @@ console.log("show base url", BASE_URL);
 export const vendorSetupAPI = createApi({
   reducerPath: "vendorSetupAPI",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost",
+    baseUrl: "http://localhost:8081/api",
+
   }),
   
   endpoints: (builder) => ({
@@ -23,6 +24,7 @@ export const vendorSetupAPI = createApi({
           vendorOfficeName: item.vendorOfficeName,
           vendorOfficeLocation: item.vendorOfficeLocation,
           vendoerPhone: item.vendoerPhone,
+          orgId: item.orgId
         }));
         return formatedData;
       },
