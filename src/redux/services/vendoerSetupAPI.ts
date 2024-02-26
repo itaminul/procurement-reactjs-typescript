@@ -7,6 +7,7 @@ export const vendorSetupAPI = createApi({
   reducerPath: "vendorSetupAPI",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:8081/api",
+
   }),
   
   endpoints: (builder) => ({
