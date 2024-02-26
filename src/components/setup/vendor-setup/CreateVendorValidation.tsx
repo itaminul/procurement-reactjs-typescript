@@ -10,4 +10,5 @@ export const CreateVendorValidation = Yup.object().shape({
   vendorOfficeName: Yup.string().required("Office name is required"),
   vendorOfficeLocation: Yup.string().required("Office name is required"),
   vendoerPhone: Yup.string().required("Office name is required"),
+  orgId: Yup.string().required("Office name is required"),
 });

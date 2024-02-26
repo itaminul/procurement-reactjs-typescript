@@ -4,7 +4,7 @@ import { VendorCountryTypes } from "../../components/setup/vendor-country-setup/
 export const venodrCountrySetupAPI = createApi({
   reducerPath: "venodrCountrySetupAPI",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:8081",
+    baseUrl: "http://localhost:8081/api",
   }),
   endpoints: (builder) => ({
     getVendorCountrySetupData: builder.query<VendorCountryTypes[], void>({
