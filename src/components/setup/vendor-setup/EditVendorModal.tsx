@@ -1,5 +1,5 @@
-import { useFormik } from "formik";
 import { useEffect, useState } from "react";
+import { useFormik } from "formik";
 import Modal from "@mui/material/Modal";
 import {
   Alert,
@@ -16,13 +16,12 @@ import { VendorDataItems } from "./VendorDataTypes";
 import { CreateVendorValidation } from "./CreateVendorValidation";
 import { useGetVendorCountrySetupDataQuery } from "../../../redux/services/vendorCountrySetupAPI";
 import { useGetVendorInformationByIdQuery } from "../../../redux/services/vendoerSetupAPI";
-import { number } from "yup";
-
 interface EditModalProps {
   open: boolean;
   onClose: () => void;
   selectedRowId: number;
   initialValues: VendorDataItems;
+  onSubmit: (values: VendorDataItems) => void;
 }
 
 const EditVendorModal = ({
@@ -30,17 +29,16 @@ const EditVendorModal = ({
   onClose,
   selectedRowId,
   initialValues,
+  onSubmit,
 }: EditModalProps) => {
   const [showSuccessMessage, setShowSuccessMessage] = useState<boolean>(false);
   const { data: vendorCountry } = useGetVendorCountrySetupDataQuery();
   const { data: vendorInfoById } =
     useGetVendorInformationByIdQuery(selectedRowId);
-    // console.log("ven id", selectedRowId);
-
   const [formData, setFormData] = useState<VendorDataItems>({
     id: 0,
     vendorName: "",
-    vendoerDescription:"",
+    vendoerDescription: "",
     vendorType: 0,
     vendorCountryType: 0,
     vendorCountry: 0,
@@ -56,60 +54,50 @@ const EditVendorModal = ({
     }
   }, [vendorInfoById]);
 
- 
-
-  // const handleVendoerTypeChange = (event: React.ChangeEvent<{ name?: any; value: unknown }>) => {
-
-  //   setFormData(prevFormData => ({
-  //     ...prevFormData,
-  //     [name as unknown as string]: values as string
-  //   }));
-  // };
-
-
-    // const handleVendoerTypeChange = (
-    //   event: React.ChangeEvent<{ name?: any; value: unknown }>
-    // ) => {
-    //   const { name, value } = event.target;
-    //   console.log("name nnnn", value);
-    //   setFormData({ ...formData, [name as any]: value });
-    //   // handleChange(setFormData({ ...formData, [name as any]: value }));
-    // };
-
   const handleVendoerTypeChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const { name, value } = event.target;
     console.log("name nnnn", value);
-    setFormData((prevData) => ({
-      ...prevData,
-      [name as any]: value,
-    }));
+    // setFormData((prevData) => ({
+    //   ...prevData,
+    //   [name as any]: value,
+    // }));
 
-    // setFormData({ ...formData, [name as any]: value });
+     setFormData({ ...formData, [name as any]: value });
     // handleChange(setFormData({ ...formData, [name as any]: value }));
   };
-    const handleBlur = (
-      event: React.FocusEvent<{ name?: any; value: unknown }>
-    ) => {
-      const { name, value } = event.target;
-      // setFormData((prevData) => ({
-      //   ...prevData,
-      //   [name as any]: value,
-      // }));
+  const handleBlur = (
+    event: React.FocusEvent<{ name?: any; value: unknown }>
+  ) => {
+    const { name, value } = event.target;
+    // setFormData((prevData) => ({
+    //   ...prevData,
+    //   [name as any]: value,
+    // }));
 
-      setFormData({ ...formData, [name as any]: value });
-    };
+    setFormData({ ...formData, [name as any]: value });
+  };
 
-     const { handleSubmit, errors, touched } = useFormik<VendorDataItems>({
-       initialValues: initialValues || {},
-       validationSchema: CreateVendorValidation,
-       onSubmit: async (formValue: VendorDataItems) => {
-         console.log("on submit", formValue);
-       },
-     });
-     
-// console.log("formData data", formData);
+  const { handleSubmit, errors, touched, values } = useFormik<VendorDataItems>({
+    initialValues: {
+      vendorName: formData.vendorName,
+      vendoerDescription: "",
+      vendorType: 0,
+      vendorCountryType: 0,
+      vendorCountry: 0,
+      vendorOfficeName: "",
+      vendorOfficeLocation: "",
+      vendoerPhone: "",
+      orgId: 0,
+    },
+    validationSchema: CreateVendorValidation,
+    onSubmit: (values) => {
+      console.log("Form submitted with values:", values);
+    },
+  });
+
+    console.log("formData data", formData);
   return (
     <Modal
       open={open}
