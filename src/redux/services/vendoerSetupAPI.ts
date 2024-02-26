@@ -6,7 +6,7 @@ console.log("show base url", BASE_URL);
 export const vendorSetupAPI = createApi({
   reducerPath: "vendorSetupAPI",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://192.168.0.84:8081",
+    baseUrl: "http://localhost",
   }),
   
   endpoints: (builder) => ({
