@@ -6,7 +6,6 @@ import { useFormik } from "formik";
 import { CreateVendorValidation } from "./CreateVendorValidation";
 import { useGetVendorCountrySetupDataQuery } from "../../../redux/services/vendorCountrySetupAPI";
 import { useGetVendorInformationByIdQuery } from "../../../redux/services/vendoerSetupAPI";
-import { number } from "yup";
 
 interface EditModalProps {
   open: boolean;
@@ -68,28 +67,18 @@ const EditVendorModal = ({
       }
     },
   });
-
-  
-
-  // const handleVendoerTypeChange = (event: React.ChangeEvent<{ name?: any; value: unknown }>) => {
-    
-  //   setFormData(prevFormData => ({
-  //     ...prevFormData,
-  //     [name as unknown as string]: values as string 
-  //   }));
-  // };
-    
-
-
-  const handleVendoerTypeChange = (event: React.ChangeEvent<{ name?: any; value: unknown }>) => {
+  const handleVendoerTypeChange = (event: React.ChangeEvent<{ name: any; value: unknown }>) => {
     const { name, value } = event.target;
     console.log("name", value);
     handleChange(setFormData({ ...formData,  [name as any]: value}));
+    
   };
-  const handleBlur = (event: React.FocusEvent<{ name?: any;value: unknown  }>) => {
+  const handleBlur = (event: React.FocusEvent<{ name: any;value: unknown  }>) => {
+
     const { name, value } = event.target;
     console.log("name", value);
     setFormData({ ...formData,  [name as any]: value});
+    
   };
     
     
@@ -149,7 +138,7 @@ const EditVendorModal = ({
                   }}
                   onChange={handleVendoerTypeChange}
                   onBlur={handleBlur}
-                  value={formData?.vendorType}
+                  value={formData.vendorType}
                 >
                   {vendorCountry?.map((countryValue) => (
                     <MenuItem 
@@ -178,7 +167,7 @@ const EditVendorModal = ({
                   }}
                   onChange={handleVendoerTypeChange}
                   onBlur={handleBlur}
-                  value={formData?.vendorCountryType}
+                  value={formData.vendorCountryType}
                 >
                   {vendorCountry?.map((vendorCountr) => (
                     <MenuItem     key={vendorCountr.id}  value={vendorCountr.id}>{vendorCountr.countryName}</MenuItem>
@@ -201,7 +190,7 @@ const EditVendorModal = ({
                   }}
                   onChange={handleVendoerTypeChange}
                   onBlur={handleBlur}
-                  value={formData?.vendorCountry}
+                  value={formData.vendorCountry}
                 >
                   {vendorCountry?.map((vendorCountr) => (
                     <MenuItem     key={vendorCountr.id}  value={vendorCountr.id}>{vendorCountr.countryName}</MenuItem>
@@ -222,7 +211,7 @@ const EditVendorModal = ({
                   variant="outlined"
                   onChange={handleVendoerTypeChange}
                   onBlur={handleBlur}
-                  value={formData?.vendorOfficeName}
+                  value={formData.vendorOfficeName}
                 />
                 {Touch.name && errors.vendorOfficeName && (
                   <div className="validation-message-color">
@@ -241,7 +230,7 @@ const EditVendorModal = ({
                   variant="outlined"
                   onChange={handleVendoerTypeChange}
                   onBlur={handleBlur}
-                  value={formData?.vendorOfficeLocation}
+                  value={formData.vendorOfficeLocation}
                 />
                 {Touch.name && errors.vendorOfficeLocation && (
                   <div className="validation-message-color">
@@ -258,7 +247,7 @@ const EditVendorModal = ({
                   variant="outlined"
                   onChange={handleVendoerTypeChange}
                   onBlur={handleBlur}
-                  value={formData?.vendoerPhone}
+                  value={formData.vendoerPhone}
                 />
                 {Touch.name && errors.vendoerPhone && (
                   <div className="validation-message-color">
@@ -277,7 +266,7 @@ const EditVendorModal = ({
                   }}
                   onChange={handleVendoerTypeChange}
                   onBlur={handleBlur}
-                  value={formData?.orgId}
+                  value={formData.orgId}
                 >                
                   <MenuItem      key={1}  value={1}>Abc</MenuItem>
                  
