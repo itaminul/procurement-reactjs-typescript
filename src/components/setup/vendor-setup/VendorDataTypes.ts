@@ -1,8 +1,8 @@
 export interface VendorDataItems {
-  vendorType?: number;
   id?: number;
   vendorName?: string;
   vendoerDescription?: string;
+  vendorType?: number;
   vendorCountryType?: number;
   vendorCountry?: number;
   vendorOfficeName?: string;

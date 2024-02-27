@@ -4,9 +4,8 @@ import { VendorDataItems } from "../../components/setup/vendor-setup/VendorDataT
 const BASE_URL = `${process.env.VITE_API_URL}`;
 console.log("show base url", BASE_URL);
 export const vendorSetupAPI = createApi({
-  reducerPath: "vendorSetupAPI",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://192.168.0.84:8081/api",
+  reducerPath: "vendorSetupAPI
+    baseUrl: "http://localhost:8081/api",
   }),
   
   endpoints: (builder) => ({
@@ -23,6 +22,7 @@ export const vendorSetupAPI = createApi({
           vendorOfficeName: item.vendorOfficeName,
           vendorOfficeLocation: item.vendorOfficeLocation,
           vendoerPhone: item.vendoerPhone,
+          orgId: item.orgId
         }));
         return formatedData;
       },
