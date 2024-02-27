@@ -16,6 +16,7 @@ import { VendorDataItems } from "./VendorDataTypes";
 import { CreateVendorValidation } from "./CreateVendorValidation";
 import { useGetVendorCountrySetupDataQuery } from "../../../redux/services/vendorCountrySetupAPI";
 import { useGetVendorInformationByIdQuery } from "../../../redux/services/vendoerSetupAPI";
+
 interface EditModalProps {
   open: boolean;
   onClose: () => void;
@@ -97,7 +98,20 @@ const EditVendorModal = ({
     },
   });
 
-    console.log("formData data", formData);
+  const handleVendoerTypeChange = (event: React.ChangeEvent<{ name: any; value: unknown }>) => {
+    const { name, value } = event.target;
+    console.log("name", value);
+    handleChange(setFormData({ ...formData,  [name as any]: value}));
+    
+  };
+  const handleBlur = (event: React.FocusEvent<{ name: any;value: unknown  }>) => {
+
+    const { name, value } = event.target;
+    console.log("name", value);
+    setFormData({ ...formData,  [name as any]: value});
+    
+  };
+
   return (
     <Modal
       open={open}
@@ -143,6 +157,24 @@ const EditVendorModal = ({
               />
             </Grid>
 
+              <Grid item xs={12} sm={4}>
+                <Select
+                  id="vendorType"
+                  name="vendorType"
+                  sx={{
+                    marginTop: 1,
+                    width: 318,
+                    height: 55,
+                  }}
+                  onChange={handleVendoerTypeChange}
+                  onBlur={handleBlur}
+                  value={formData.vendorType}
+                >
+                  {vendorCountry?.map((countryValue) => (
+                    <MenuItem 
+                    key={countryValue.id} 
+                    value={countryValue.id} >
+
             <Grid item xs={12} sm={4}>
               <Select
                 id="vendorType"
@@ -158,6 +190,7 @@ const EditVendorModal = ({
               >
                 {vendorCountry?.map((countryValue) => (
                   <MenuItem key={countryValue.id} value={countryValue.id}>
+
                     {countryValue.countryName}
                   </MenuItem>
                 ))}
@@ -256,6 +289,126 @@ const EditVendorModal = ({
                 </div>
               )}
             </Grid>
+
+            <Grid container spacing={1}>
+              <Grid item xs={12} sm={4}>
+                <Select
+                  id="vendorCountryType"
+                  name="vendorCountryType"
+                  sx={{
+                    marginTop: 1,
+                    width: 318,
+                    height: 55,
+                  }}
+                  onChange={handleVendoerTypeChange}
+                  onBlur={handleBlur}
+                  value={formData.vendorCountryType}
+                >
+                  {vendorCountry?.map((vendorCountr) => (
+                    <MenuItem     key={vendorCountr.id}  value={vendorCountr.id}>{vendorCountr.countryName}</MenuItem>
+                  ))}
+                </Select>
+                {Touch.name && errors.vendorCountryType && (
+                  <div className="validation-message-color">
+                    {errors.vendorCountryType}
+                  </div>
+                )}
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <Select
+                  id="vendorCountry"
+                  name="vendorCountry"
+                  sx={{
+                    marginTop: 1,
+                    width: 318,
+                    height: 55,
+                  }}
+                  onChange={handleVendoerTypeChange}
+                  onBlur={handleBlur}
+                  value={formData.vendorCountry}
+                >
+                  {vendorCountry?.map((vendorCountr) => (
+                    <MenuItem     key={vendorCountr.id}  value={vendorCountr.id}>{vendorCountr.countryName}</MenuItem>
+                  ))}
+                </Select>
+                {Touch.name && errors.vendorCountry && (
+                  <div className="validation-message-color">
+                    {errors.vendorCountry}
+                  </div>
+                )}
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <TextField
+                  name="vendorOfficeName"
+                  id="vendorOfficeName"
+                  fullWidth
+                  // label="Vendor Office Name"
+                  variant="outlined"
+                  onChange={handleVendoerTypeChange}
+                  onBlur={handleBlur}
+                  value={formData.vendorOfficeName}
+                />
+                {Touch.name && errors.vendorOfficeName && (
+                  <div className="validation-message-color">
+                    {errors.vendorOfficeName}
+                  </div>
+                )}
+              </Grid>
+            </Grid>
+            <Grid container spacing={1}>
+              <Grid item xs={12} sm={4}>
+                <TextField
+                  name="vendorOfficeLocation"
+                  id="vendorOfficeLocation"
+                  fullWidth
+                  // label="Vendor Office Location"
+                  variant="outlined"
+                  onChange={handleVendoerTypeChange}
+                  onBlur={handleBlur}
+                  value={formData.vendorOfficeLocation}
+                />
+                {Touch.name && errors.vendorOfficeLocation && (
+                  <div className="validation-message-color">
+                    {errors.vendorOfficeLocation}
+                  </div>
+                )}
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <TextField
+                  name="vendoerPhone"
+                  id="vendoerPhone"
+                  fullWidth
+                  // label="Vendor Phone"
+                  variant="outlined"
+                  onChange={handleVendoerTypeChange}
+                  onBlur={handleBlur}
+                  value={formData.vendoerPhone}
+                />
+                {Touch.name && errors.vendoerPhone && (
+                  <div className="validation-message-color">
+                    {errors.vendoerPhone}
+                  </div>
+                )}
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <Select
+                  id="orgId"
+                  name="orgId"
+                  sx={{
+                    marginTop: 1,
+                    width: 318,
+                    height: 55,
+                  }}
+                  onChange={handleVendoerTypeChange}
+                  onBlur={handleBlur}
+                  value={formData.orgId}
+                >                
+                  <MenuItem      key={1}  value={1}>Abc</MenuItem>
+                 
+                </Select>
+                
+                </Grid>
+
             <Grid item xs={12} sm={4}>
               <TextField
                 name="vendoerPhone"
@@ -290,6 +443,7 @@ const EditVendorModal = ({
                   Abc
                 </MenuItem>
               </Select>
+
             </Grid>
           </Grid>
 
